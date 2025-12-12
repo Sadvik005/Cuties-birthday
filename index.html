@@ -881,7 +881,7 @@ const typingText = document.getElementById("typingText");
 function typeLine(){
   if(li >= loadingLines.length){
     setTimeout(()=>{
-      show('intro');
+      show('passwordPage'); 
       document.getElementById('loading').classList.remove('show');
     }, 600);
     return;
@@ -1296,12 +1296,11 @@ if (
     }, 400);
 
     // move to loading screen
-    setTimeout(() => {
-      show("loading");
-      li = 0; 
-      ci = 0;
-      typeLine(); // start preparing animation
-    }, 1200);
+    // move to intro page directly
+setTimeout(() => {
+  show("intro");
+}, 1200);
+
 
   } else {
 
@@ -1340,7 +1339,9 @@ shakeStyles.innerHTML = `
 document.head.appendChild(shakeStyles);
 
 // start app on password page
-show("passwordPage");
+show("loading");
+typeLine();  // start typing animation immediately
+
 
 </script>
 </body>
