@@ -117,19 +117,20 @@
 
 /* BUTTON FIX */
 #prev, #next {
-  background: rgba(0,0,0,0.3) !important;
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255,255,255,0.15);
-  padding: 10px;
-  border-radius: 50%;
-  font-size: 28px;
+  background: none !important;
+  border: none !important;
+  padding: 0;
+  font-size: 48px; /* big and clean */
+  font-weight: 700;
+  color: white;
   cursor: pointer;
-  transition: .2s;
+  transition: 0.2s;
+}
+#prev:hover, #next:hover {
+  transform: scale(1.15);
+  color: var(--neon-blue);
 }
 
-#prev:hover, #next:hover {
-  transform: scale(1.1);
-}
 
 /* DOTS FIX */
 .dots {
