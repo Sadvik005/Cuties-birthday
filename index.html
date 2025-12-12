@@ -585,6 +585,12 @@
   max-height: calc(100vh - 60px);
 }
 
+@media (max-width: 740px) {
+  .card.scrollable {
+    max-height: 100vh !important;
+    overflow-y: auto !important;
+  }
+}
 
 
 
@@ -858,11 +864,16 @@ function show(pageId){
   if(el) el.classList.add('show');
   // allow scrolling inside our card on small devices when final/long content
   const appCard = document.getElementById('appCard');
-  if(pageId === 'final' || pageId === 'polaroidPage' || pageId === 'gallery') {
-    appCard.classList.add('scrollable');
-  } else {
-    appCard.classList.remove('scrollable');
-  }
+if (
+    pageId === "balloonPage" ||
+    pageId === "gallery" ||
+    pageId === "final"
+) {
+    appCard.classList.add("scrollable");
+} else {
+    appCard.classList.remove("scrollable");
+}
+
 }
 
 /* ---------------------------
