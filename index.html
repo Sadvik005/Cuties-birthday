@@ -575,20 +575,25 @@
   }
 }
 /* Make balloon page scrollable on mobile */
-#balloonPage {
-  overflow-y: auto;
-  max-height: calc(100vh - 40px);
-}
-
-.balloon-page {
-  overflow-y: auto;
-  max-height: calc(100vh - 60px);
+@media (max-width: 740px) {
+  .card.scrollable {
+    max-height: 100vh !important;
+    overflow-y: auto !important;
+  }
 }
 
 @media (max-width: 740px) {
   .card.scrollable {
     max-height: 100vh !important;
     overflow-y: auto !important;
+  }
+
+  .balloon-grid {
+    margin-bottom: 20px; /* gives breathing room */
+  }
+
+  #continueGift {
+    margin-top: 18px;
   }
 }
 
