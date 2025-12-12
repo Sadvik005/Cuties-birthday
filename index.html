@@ -120,16 +120,21 @@
   background: none !important;
   border: none !important;
   padding: 0;
-  font-size: 48px; /* big and clean */
+  font-size: 48px;
   font-weight: 700;
   color: white;
   cursor: pointer;
-  transition: 0.2s;
+  opacity: 0.7;            /* soft fade */
+  transition: 0.25s ease;  /* smooth animation */
 }
+
 #prev:hover, #next:hover {
-  transform: scale(1.15);
-  color: var(--neon-blue);
+  opacity: 1;                             /* fully visible */
+  transform: scale(1.2);                  /* gentle zoom */
+  text-shadow: 0 0 12px var(--neon-blue), 
+               0 0 20px var(--neon-pink); /* neon glow */
 }
+
 
 
 /* DOTS FIX */
@@ -1354,6 +1359,38 @@ document.head.appendChild(shakeStyles);
 // start app on password page
 show("loading");
 typeLine();  // start typing animation immediately
+
+/* ---------------------------
+   MOBILE SWIPE for gallery
+--------------------------- */
+let startX = 0;
+let endX = 0;
+
+track.addEventListener("touchstart", (e) => {
+  startX = e.touches[0].clientX;
+});
+
+track.addEventListener("touchmove", (e) => {
+  endX = e.touches[0].clientX;
+});
+
+track.addEventListener("touchend", () => {
+  let diff = startX - endX;
+
+  // Swipe left → next image
+  if (diff > 50) {
+    go((current + 1) % total);
+  }
+
+  // Swipe right → previous image
+  if (diff < -50) {
+    go((current - 1 + total) % total);
+  }
+
+  startX = 0;
+  endX = 0;
+});
+
 
 
 </script>
