@@ -608,6 +608,12 @@
 </style>
 </head>
 
+
+<audio id="bgMusic" loop>
+  <source src="perfect.mp3" type="audio/mpeg">
+</audio>
+
+
 <!-- PASSWORD PAGE -->
 <section id="passwordPage" class="page show">
   <div class="center" style="padding:20px">
@@ -677,6 +683,12 @@
 </section>
 
 <body>
+
+<audio id="bgMusic" loop>
+  <source src="perfect.mp3" type="audio/mpeg">
+</audio>
+
+
 <div class="app">
   <div class="card scrollable" id="appCard">
 
@@ -933,6 +945,9 @@ const countEl = document.getElementById('countEl');
 
 startBtn.addEventListener('click', ()=> {
 
+  document.getElementById("bgMusic").play().catch(()=>{});
+
+
   // hide intro text
   document.querySelector('#intro .holo').style.display = "none";
   document.querySelector('#intro .neon-sub').style.display = "none";
@@ -1187,10 +1202,13 @@ function stopAuto(){ if(autoTimer) clearInterval(autoTimer); }
 // track.addEventListener('mouseleave', startAuto);
 
 document.getElementById('toLetter').addEventListener('click', ()=>{
+  document.getElementById("bgMusic").pause();   // ← ADD THIS HERE
+  
   show('final');
   startHearts();
   confetti({particleCount:120,spread:160,origin:{y:0.6}});
 });
+
 
 /* ---------------------------
    Hearts for final
