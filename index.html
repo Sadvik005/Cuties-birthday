@@ -769,10 +769,7 @@
             <div id="messageText" class="popWord" aria-live="polite"></div>
           </div>
 
-          <div style="display:flex;justify-content:center;margin-top:6px">
-           <button id="continueGift" class="btn" style="display:none">Continue to Gift ❤️</button>
-
-          </div>
+        
         </div>
       </div>
     </section>
@@ -797,7 +794,7 @@
   </div>
 
   <div style="text-align:center;margin-top:18px">
-    <button id="giftContinue" class="btn" style="display:none">Continue ❤️</button>
+    <button id="giftContinue" class="btn" style="display:none">Continue to gallery❤️</button>
   </div>
 </section>
 
@@ -1002,7 +999,6 @@ lightBtn.addEventListener('click', ()=>{
    --------------------------- */
 const balloonGrid = document.getElementById('balloonGrid');
 const messageText = document.getElementById('messageText');
-const continueGift = document.getElementById('continueGift');
 
 
 const balloonWords = ['YOU','ARE','A','CUTIEPIE 😋☺️']; // index 0..3
@@ -1106,15 +1102,15 @@ function popBalloon(i, balloonEl, labelEl){
 
   // if all popped -> go to polaroids after a moment
 if (poppedCount >= balloonEls.length) {
-  continueGift.style.display = "inline-block";  // show button
+  setTimeout(() => {
+    show("giftPage");
+  }, 1450); // small delay so last balloon pop animation shows
 }
 
 
+
 }
 
-continueGift.addEventListener('click', ()=> {
-  show('giftPage');
-});
 
 
 
