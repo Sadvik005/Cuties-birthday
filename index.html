@@ -191,7 +191,11 @@
   #letterText{font-size:18px;line-height:1.6;color:rgba(181,243,255,0.95)}
 
   /* hearts */
-  #hearts{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden}
+  #hearts{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden}/* ✅ allow clicking ONLY the hearts */
+.heart{
+  pointer-events:auto;
+  cursor:pointer;
+}
   .heart{position:absolute;font-size:20px;animation:heartUp 3.2s linear forwards}
   @keyframes heartUp{0%{transform:translateY(0) scale(.9);opacity:1}100%{transform:translateY(-720px) scale(1.6) rotate(45deg);opacity:0}}
 
@@ -1142,6 +1146,7 @@
 
   </div>
 </div>
+
 <footer style="
   width:100%;
   text-align:center;
@@ -1738,6 +1743,56 @@ track.addEventListener("touchend", () => {
   endX = 0;
 });
 
+/* 🥚 Hidden Easter Egg — 5 heart taps */
+let heartTaps = 0;
+let eggTimer = null;
+let eggShown = false;
+
+document.addEventListener("pointerdown", (e) => {
+
+  if (eggShown) return;
+
+  // ✅ detect floating heart correctly
+  if (!e.target.classList.contains("heart")) return;
+
+  heartTaps++;
+
+  if (heartTaps === 1) {
+    eggTimer = setTimeout(() => {
+      heartTaps = 0;
+    }, 4000);
+  }
+
+  if (heartTaps >= 5) {
+    showEgg();
+  }
+});
+
+/* 🥚 Easter Egg functions — REQUIRED */
+function showEgg() {
+  eggShown = true;
+  clearTimeout(eggTimer);
+
+  const egg = document.getElementById("easterEgg");
+  if (!egg) return;
+
+  egg.style.opacity = "1";
+  egg.style.pointerEvents = "auto";
+
+  confetti({
+    particleCount: 160,
+    spread: 180,
+    origin: { y: 0.6 }
+  });
+}
+
+function closeEgg() {
+  const egg = document.getElementById("easterEgg");
+  if (!egg) return;
+
+  egg.style.opacity = "0";
+  egg.style.pointerEvents = "none";
+}
 
 
 
@@ -1745,6 +1800,43 @@ track.addEventListener("touchend", () => {
 
 </script>
 <script async src="https://tenor.com/embed.js"></script>
+<div id="easterEgg" style="
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(8px);
+  z-index: 99999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .4s ease;
+">
+  <div style="
+    text-align:center;
+    padding:30px;
+    border-radius:18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  ">
+    <div style="font-size:34px">💞</div>
+    <div class="holo" style="margin-top:10px">
+      You found my hidden heart
+    </div>
+    <div class="neon-sub" style="margin-top:6px">
+      This was meant only for you 🐣
+    </div>
+
+    <button onclick="closeEgg()" class="btn" style="margin-top:16px">
+      Awww 💖
+    </button>
+  </div>
+</div>
+
+
+
+
 
 </body>
 </html>
