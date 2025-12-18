@@ -43,7 +43,7 @@
   /* page card wrapper (centered, responsive) */
   .card {
     width:100%;max-width:1100px;border-radius:var(--card-radius);
-    padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008));
+    padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008)); 
     box-shadow:var(--shadow-soft);border:1px solid rgba(255,255,255,0.04);
     position:relative;overflow:hidden;
   }
@@ -52,7 +52,7 @@
   .page{display:none;padding:18px;box-sizing:border-box}
   .page.show{display:block}
   .center{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px}
-  .holo{font-family:'Pacifico';font-size:28px;background:linear-gradient(90deg,#fff,#fff3);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 36px rgba(0,212,255,0.08));text-align:center}
+  .holo{font-family:'Pacifico';font-size:26px;background:linear-gradient(90deg,#fff,#fff3);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 36px rgba(0,212,255,0.08));text-align:center}
   .neon-sub{color:transparent;background:var(--accent);-webkit-background-clip:text;background-clip:text;font-weight:700;font-size:13px;letter-spacing:.6px;text-align:center}
 
   /* loader typing */
@@ -608,7 +608,7 @@
   }
 }
 /* DESKTOP FIX — reduce gallery image height */
-@media (min-width: 760px) {
+@media (min-width: 780px) {
   .slide {
     height: 420px !important;  /* adjust height smaller */
     aspect-ratio: auto !important; /* stop it from stretching */
@@ -623,6 +623,8 @@
     max-width: 760px !important; /* keeps gallery nicely centered */
   }
 }
+
+
 
 /* CLEAN & RESPONSIVE GALLERY */
 .slider {
@@ -734,6 +736,76 @@
     display: none !important;
 }
 
+#intro .tenor-gif-embed {
+  filter: drop-shadow(0 0 16px rgba(255,71,199,0.45));
+  animation: popIn .6s ease;
+}
+
+@keyframes popIn {
+  from { transform: scale(.9); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+
+/* 🎁 Gift Card Style */
+.gift-card {
+  max-width: 320px;
+  margin: 24px auto 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.05));
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(10px);
+
+  opacity: 0;
+  transform: translateY(30px) scale(0.95);
+  transition: all 0.6s ease;
+  display: none;
+}
+
+.gift-card.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.gift-card-inner {
+  padding: 22px;
+  text-align: center;
+  color: #fff;
+}
+
+#prev, #next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 44px;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: .25s;
+  z-index: 10;
+}
+
+#prev { left: 20px; }
+#next { right: 20px; }
+
+#prev:hover, #next:hover {
+  transform: translateY(-50%) scale(1.25);
+  opacity: 1;
+  text-shadow: 0 0 12px var(--neon-blue), 0 0 20px var(--neon-pink);
+}
+
+/* 🚫 HIDE GALLERY ARROWS ON MOBILE */
+@media (max-width: 760px) {
+  #prev,
+  #next {
+    display: none !important;
+  }
+}
+
 
 </style>
 </head>
@@ -805,6 +877,8 @@
   Hint: Vizagg police dailogg ✌️
 </div>
 
+
+
 </section>
 
 <audio id="bgMusic" loop>
@@ -825,9 +899,37 @@
       </div>
     </section>
 
+
+
     <!-- INTRO -->
     <section id="intro" class="page" aria-live="polite">
       <div class="center" style="padding:6px">
+
+        <!-- TOP CUTIE GIF -->
+<!-- TOP CUTIE GIF -->
+<div id="introGif" style="
+  width:100%;
+  display:flex;
+  justify-content:center;
+  margin-bottom:12px;
+">
+
+  <div style="
+    max-width:240px;
+    width:100%;
+    border-radius:18px;
+    overflow:hidden;
+  ">
+    <div class="tenor-gif-embed"
+         data-postid="22448962"
+         data-share-method="host"
+         data-aspect-ratio="1"
+         data-width="100%">
+    </div>
+  </div>
+</div>
+
+
         <div class="count" id="countEl">3</div>
         <div class="holo">A cutiepie was born today — 26 years ago</div>
         <div class="neon-sub">Yes, it's <span style="font-family: 'Luckiest Guy', cursive; color: var(--neon-pink); font-size: 22px; text-shadow: 0 0 8px rgba(255,71,199,0.6);">
@@ -922,6 +1024,32 @@
   </div>
 
   <div class="gift-container">
+    <!-- GIFT CARD -->
+<div id="giftCard" class="gift-card">
+  <div class="gift-card-inner">
+
+        <!-- GIF -->
+    <div style="max-width:140px;margin:0 auto 12px;border-radius:14px;overflow:hidden">
+      <div class="tenor-gif-embed"
+           data-postid="16167379"
+           data-share-method="host"
+           data-aspect-ratio="1.23552"
+           data-width="100%">
+      </div>
+    </div>
+
+    <div class="holo" style="font-size:24px">For My Cutiee💗</div>
+    <p style="margin-top:12px; font-size:16px; line-height:1.6">
+      You are my safe place, my happiness, and my favorite smile.  
+      Thank you for being you, always.  
+      I’m so proud of you rah babiii😘✨
+    </p>
+    <div style="margin-top:14px; font-family:Pacifico; font-size:20px; color:#ffb7e6">
+      —Buttaa 💖
+    </div>
+  </div>
+</div>
+
     <div id="giftBox" class="gift-box">
       <div class="lid"></div>
       <div class="base"></div>
@@ -929,11 +1057,6 @@
       <div class="ribbon-horizontal"></div>
     </div>
   </div>
-
-  <div id="giftMessage" class="gift-message">
-    You deserve all the happiness in the world rah kuchupuchuu 💗✨
-  </div>
-
   <div style="text-align:center;margin-top:18px">
     <button id="giftContinue" class="btn" style="display:none">Continue to gallery❤️</button>
   </div>
@@ -948,6 +1071,10 @@
       </div>
 
       <div class="slider">
+
+        <button id="prev" aria-label="Previous slide">&lt;</button>
+<button id="next" aria-label="Next slide">&gt;</button>
+
         <div id="track" class="track" role="region" aria-label="Image gallery">
           <div class="slide"><img src="SP bro.jpg" alt="gallery 3"></div>
           <div class="slide"><img src="yay1 (8).jpg" alt="gallery 3"></div>
@@ -960,19 +1087,36 @@
           <div class="slide"><img src="SP BRO (9).jpg" alt="gallery 3"></div>
           <div class="slide"><img src="SP BRO (15).jpg" alt="gallery 1"></div>
           <div class="slide"><img src="SP BRO (14).jpg" alt="gallery 1"></div>
-          
-          
-        </div>
+          </div>
+         </div>
+         <div class="dots" id="dots" aria-hidden="false"></div>
 
-       
-      </div>
+         <!-- GIF COMES HERE -->
+<div style="
+  display:flex;
+  justify-content:center;
+  margin-top:18px;
+">
+  <div style="
+    max-width:160px;   /* 🔽 CHANGE SIZE HERE */
+    width:100%;
+    border-radius:16px;
+    overflow:hidden;
+  ">
+    <div class="tenor-gif-embed"
+         data-postid="3867385048469954630"
+         data-share-method="host"
+         data-aspect-ratio="1"
+         data-width="100%">
+    </div>
+  </div>
+</div>
 
-      <div class="dots" id="dots" aria-hidden="false"></div>
 
-      <div style="display:flex;justify-content:center;margin-top:12px">
-        <button id="toLetter" class="btn">Continue to Letter ❤️</button>
-      </div>
-    </section>
+     <div style="display:flex;justify-content:center;margin-top:12px">
+  <button id="toLetter" class="btn">Continue to Letter ❤️</button>
+</div>
+</section>
 
     <!-- FINAL LETTER -->
     <section id="final" class="page" aria-live="polite">
@@ -1096,6 +1240,10 @@ const countEl = document.getElementById('countEl');
 
 startBtn.addEventListener('click', ()=> {
 
+  const introGif = document.getElementById("introGif");
+if (introGif) introGif.style.display = "none";
+
+
   document.getElementById("bgMusic").play().catch(()=>{});
 
 
@@ -1173,7 +1321,7 @@ const balloonGrid = document.getElementById('balloonGrid');
 const messageText = document.getElementById('messageText');
 
 
-const balloonWords = ['YOU','ARE','A','CUTIEPIE 😋☺️']; // index 0..3
+const balloonWords = ['YOU','ARE','A','CUTIEPIE😋']; // index 0..3
 let poppedCount = 0;
 let balloonEls = []; // DOM elements
 
@@ -1290,32 +1438,54 @@ if (poppedCount >= balloonEls.length) {
    Gift Box Surprise
    --------------------------- */
 const giftBox = document.getElementById("giftBox");
-const giftMessage = document.getElementById("giftMessage");
+
 const giftContinue = document.getElementById("giftContinue");
 
+
+const giftCard = document.getElementById("giftCard");
+
 giftBox.addEventListener("click", () => {
-  
+
   // stop shaking
   giftBox.style.animation = "none";
 
-  // open lid animation
-  giftBox.querySelector(".lid").style.transform = "translateY(-80px) rotate(-15deg)";
+  // open lid
+  giftBox.querySelector(".lid")
+    .style.transform = "translateY(-80px) rotate(-15deg)";
 
-  // confetti burst
-  confetti({particleCount:120,spread:160,origin:{y:0.6}});
+  // confetti
+  confetti({ particleCount:120, spread:160, origin:{ y:0.6 } });
 
-  // show message
   setTimeout(() => {
-    giftMessage.style.opacity = 1;
-    giftMessage.style.transform = "translateY(0)";
+
+giftBox.style.transition = "opacity .4s ease";
+giftBox.style.opacity = "0";
+setTimeout(() => giftBox.style.display = "none", 400);
+
+    // 🎁 SHOW GIFT CARD
+    giftCard.style.display = "block";
+    giftCard.classList.add("show");
+
+    // show continue button
     giftContinue.style.display = "inline-block";
+
   }, 600);
 });
 
-// continue button → go to gallery
+// 👉 CONTINUE TO GALLERY BUTTON FIX
 giftContinue.addEventListener("click", () => {
   show("gallery");
+
+  // optional celebration
+  confetti({
+    particleCount: 120,
+    spread: 160,
+    origin: { y: 0.6 }
+  });
 });
+
+
+
 
 
 /* ---------------------------
@@ -1344,6 +1514,15 @@ function go(i){
   track.style.transform = `translateX(-${current*100}%)`;
   updateDots();
 }
+
+document.getElementById("prev").addEventListener("click", () => {
+  go((current - 1 + total) % total);
+});
+
+document.getElementById("next").addEventListener("click", () => {
+  go((current + 1) % total);
+});
+
 
 function startAuto(){ stopAuto(); autoTimer = setInterval(()=> go((current+1)%total),4200); }
 function stopAuto(){ if(autoTimer) clearInterval(autoTimer); }
@@ -1563,6 +1742,9 @@ track.addEventListener("touchend", () => {
 
 
 
+
 </script>
+<script async src="https://tenor.com/embed.js"></script>
+
 </body>
 </html>
