@@ -45,7 +45,7 @@
     width:100%;max-width:1100px;border-radius:var(--card-radius);
     padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008)); 
     box-shadow:var(--shadow-soft);border:1px solid rgba(255,255,255,0.04);
-    position:relative;overflow:hidden;
+    position:relative;overflow:visible;
   }
 
   /* page container styles */
@@ -191,7 +191,7 @@
   #letterText{font-size:18px;line-height:1.6;color:rgba(181,243,255,0.95)}
 
   /* hearts */
-  #hearts{position:fixed;inset:0;pointer-events:none;z-index:9999;overflow:hidden}/* ✅ allow clicking ONLY the hearts */
+  #hearts{position:fixed;inset:0;pointer-events:none;z-index:999999;overflow:hidden}/* ✅ allow clicking ONLY the hearts */
 .heart{
   pointer-events:auto;
   cursor:pointer;
@@ -1742,17 +1742,15 @@ track.addEventListener("touchend", () => {
   startX = 0;
   endX = 0;
 });
+/* 🥚 Hidden Easter Egg — MOBILE + DESKTOP SAFE */
 
-/* 🥚 Hidden Easter Egg — 5 heart taps */
 let heartTaps = 0;
 let eggTimer = null;
 let eggShown = false;
 
-document.addEventListener("pointerdown", (e) => {
-
+function handleHeartTap(e) {
   if (eggShown) return;
 
-  // ✅ detect floating heart correctly
   if (!e.target.classList.contains("heart")) return;
 
   heartTaps++;
@@ -1766,33 +1764,13 @@ document.addEventListener("pointerdown", (e) => {
   if (heartTaps >= 5) {
     showEgg();
   }
-});
-
-/* 🥚 Easter Egg functions — REQUIRED */
-function showEgg() {
-  eggShown = true;
-  clearTimeout(eggTimer);
-
-  const egg = document.getElementById("easterEgg");
-  if (!egg) return;
-
-  egg.style.opacity = "1";
-  egg.style.pointerEvents = "auto";
-
-  confetti({
-    particleCount: 160,
-    spread: 180,
-    origin: { y: 0.6 }
-  });
 }
 
-function closeEgg() {
-  const egg = document.getElementById("easterEgg");
-  if (!egg) return;
+// 📱 MOBILE
+document.addEventListener("touchstart", handleHeartTap, { passive: true });
 
-  egg.style.opacity = "0";
-  egg.style.pointerEvents = "none";
-}
+// 🖥️ DESKTOP
+document.addEventListener("mousedown", handleHeartTap);
 
 
 
