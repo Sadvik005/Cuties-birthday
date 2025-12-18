@@ -1742,6 +1742,34 @@ track.addEventListener("touchend", () => {
   startX = 0;
   endX = 0;
 });
+
+/* 🥚 Easter Egg functions — REQUIRED */
+
+function showEgg() {
+  eggShown = true;
+  clearTimeout(eggTimer);
+
+  const egg = document.getElementById("easterEgg");
+  if (!egg) return;
+
+  egg.style.opacity = "1";
+  egg.style.pointerEvents = "auto";
+
+  confetti({
+    particleCount: 160,
+    spread: 180,
+    origin: { y: 0.6 }
+  });
+}
+
+function closeEgg() {
+  const egg = document.getElementById("easterEgg");
+  if (!egg) return;
+
+  egg.style.opacity = "0";
+  egg.style.pointerEvents = "none";
+}
+
 /* 🥚 Hidden Easter Egg — MOBILE + DESKTOP SAFE */
 
 let heartTaps = 0;
