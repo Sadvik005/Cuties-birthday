@@ -810,6 +810,30 @@
   }
 }
 
+/* 🎀 INTRO STICKER — SMALL & CUTE */
+.intro-sticker {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.intro-sticker .tenor-gif-embed {
+  width: 140px !important;   /* 🔽 CHANGE SIZE HERE */
+  max-width: 140px !important;
+  border-radius: 16px;
+  overflow: hidden;
+  filter: drop-shadow(0 0 14px rgba(255,71,199,0.5));
+}
+
+/* EXTRA SMALL ON MOBILE */
+@media (max-width: 500px) {
+  .intro-sticker .tenor-gif-embed {
+    width: 130px !important;
+    max-width: 130px !important;
+  }
+}
+
+
 
 </style>
 </head>
@@ -911,12 +935,8 @@
 
         <!-- TOP CUTIE GIF -->
 <!-- TOP CUTIE GIF -->
-<div id="introGif" style="
-  width:100%;
-  display:flex;
-  justify-content:center;
-  margin-bottom:12px;
-">
+<div id="introGif" class="intro-sticker">
+
 
   <div style="
     max-width:240px;
@@ -1095,7 +1115,7 @@
          </div>
          <div class="dots" id="dots" aria-hidden="false"></div>
 
-         <!-- GIF COMES HERE -->
+         <!-- GIF COMES HERE
 <div style="
   display:flex;
   justify-content:center;
@@ -1114,13 +1134,15 @@
          data-width="100%">
     </div>
   </div>
-</div>
+</div> -->
 
 
      <div style="display:flex;justify-content:center;margin-top:12px">
   <button id="toLetter" class="btn">Continue to Letter ❤️</button>
 </div>
 </section>
+
+
 
     <!-- FINAL LETTER -->
     <section id="final" class="page" aria-live="polite">
