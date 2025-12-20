@@ -750,6 +750,12 @@
   to   { transform: scale(1); opacity: 1; }
 }
 
+/* FORCE COLORED EMOJIS */
+.emoji {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji",
+               "Noto Color Emoji", emoji;
+}
+
 
 /* 🎁 Gift Card Style */
 .gift-card {
@@ -831,6 +837,17 @@
     width: 130px !important;
     max-width: 130px !important;
   }
+}
+
+/* FIX EMOJIS INSIDE HOLO TEXT */
+.holo .emoji {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", emoji;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+  color: initial !important;
+  filter: drop-shadow(0 0 6px rgba(255,180,230,0.6));
 }
 
 
@@ -1002,8 +1019,8 @@
             </svg>
 
             <div style="display:flex;gap:10px;align-items:center">
-              <button id="decorate" class="neon-btn" aria-label="Decorate cake">Decorate Cake</button>
-              <button id="light" class="btn" style="display:none" aria-label="Light candle">Light Candle</button>
+              <button id="decorate" class="neon-btn" aria-label="Decorate cake">Decorate Cake 🫵🏼</button>
+              <button id="light" class="btn" style="display:none" aria-label="Light candle">Light Candle 💫</button>
             </div>
 
             <div id="cakeText" style="opacity:0;transition:all .5s;margin-top:8px;text-align:center">
@@ -1014,7 +1031,7 @@
 
         <div class="right">
           <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
-            <div class="holo">Cake & Candle</div>
+            <div class="holo">Cake & Candle  <span class="emoji">🎂🕯️</span></div>
             <div class="neon-sub">Decorate it and light the candle to continue rahh haa</div>
           </div>
         </div>
@@ -1066,7 +1083,7 @@
     <p style="margin-top:12px; font-size:16px; line-height:1.6">
       You are my safe place, my happiness, and my favorite smile.  
       Thank you for being you, always.  
-      I’m so proud of you rah babiii😘✨
+      I’m so proud of you rah babiii🐣😘✨
     </p>
     <div style="margin-top:14px; font-family:Pacifico; font-size:20px; color:#ffb7e6">
       —Buttaa 💖
@@ -1082,7 +1099,7 @@
     </div>
   </div>
   <div style="text-align:center;margin-top:18px">
-    <button id="giftContinue" class="btn" style="display:none">Continue to gallery❤️</button>
+    <button id="giftContinue" class="btn" style="display:none">Continue to gallery 📸✨</button>
   </div>
 </section>
 
@@ -1138,7 +1155,7 @@
 
 
      <div style="display:flex;justify-content:center;margin-top:12px">
-  <button id="toLetter" class="btn">Continue to Letter ❤️</button>
+  <button id="toLetter" class="btn">Continue to Letter 💌</button>
 </div>
 </section>
 
@@ -1338,7 +1355,7 @@ lightBtn.addEventListener('click', ()=>{
     show('balloonPage');
     // create balloons
     initBalloons();
-  }, 2800);
+  }, 3000);
 });
 
 /* ---------------------------
@@ -1451,7 +1468,7 @@ function popBalloon(i, balloonEl, labelEl){
 if (poppedCount >= balloonEls.length) {
   setTimeout(() => {
     show("giftPage");
-  }, 1450); // small delay so last balloon pop animation shows
+  }, 1500); // small delay so last balloon pop animation shows
 }
 
 
