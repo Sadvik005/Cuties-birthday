@@ -17,16 +17,19 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <style>
-  :root{
-    --bg-1: #04020a;
-    --bg-2: #120022;
-    --neon-pink: #ff47c7;
-    --neon-blue: #00d4ff;
-    --glass: rgba(255,255,255,0.03);
-    --accent: linear-gradient(90deg,var(--neon-pink),var(--neon-blue));
-    --card-radius: 14px;
-    --shadow-soft: 0 16px 50px rgba(0,0,0,0.6);
-  }
+
+  
+:root{
+  --bg-1: #080014;
+  --bg-2: #160029;
+  --neon-pink: #d7a9ff;
+  --neon-blue: #9f7aea;
+  --glass: rgba(255,255,255,0.04);
+  --accent: linear-gradient(90deg,#d7a9ff,#9f7aea);
+  --card-radius: 16px;
+  --shadow-soft: 0 20px 70px rgba(159,122,234,0.35);
+}
+
 
   /* ---------- Reset & Layout ---------- */
   *{box-sizing:border-box}
@@ -850,6 +853,86 @@
   filter: drop-shadow(0 0 6px rgba(255,180,230,0.6));
 }
 
+/* ================= PASSWORD CARD UPGRADE ================= */
+
+.password-card {
+  max-width: 380px;
+  width: 100%;
+  padding: 32px 26px;
+  border-radius: 22px;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.14),
+    rgba(255,255,255,0.04)
+  );
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow:
+    0 30px 90px rgba(0,0,0,0.65),
+    0 0 40px rgba(159,122,234,0.35);
+  animation: cardPop .7s ease;
+  text-align: center;
+}
+
+@keyframes cardPop {
+  from { transform: scale(.9) translateY(20px); opacity: 0; }
+  to   { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* Lock glow animation */
+#lockIcon {
+  animation: pulseGlow 2.2s infinite;
+}
+
+@keyframes pulseGlow {
+  0% { transform: scale(1); filter: drop-shadow(0 0 10px #ff47c7); }
+  50% { transform: scale(1.1); filter: drop-shadow(0 0 26px #9f7aea); }
+  100% { transform: scale(1); filter: drop-shadow(0 0 10px #ff47c7); }
+}
+
+/* Input redesign */
+.password-input {
+  width: 100%;
+  padding: 14px 18px;
+  margin-top: 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+  outline: none;
+  transition: 0.3s;
+  box-shadow: inset 0 0 0 rgba(255,255,255,0);
+}
+
+.password-input:focus {
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 0 3px rgba(159,122,234,0.35);
+}
+
+/* Unlock button glow */
+.password-btn {
+  margin-top: 16px;
+  width: 100%;
+  padding: 14px;
+  font-size: 18px;
+  border-radius: 999px;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(90deg,#ffd6f9,#9f7aea);
+  color: #050014;
+  box-shadow: 0 18px 50px rgba(159,122,234,0.55);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.password-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 70px rgba(159,122,234,0.75);
+}
+
+
 
 
 </style>
@@ -858,73 +941,60 @@
 
   <!-- PASSWORD PAGE -->
 <section id="passwordPage" class="page">
-  <div class="center" style="padding:20px">
+<div class="center">
 
-    <!-- 🔒 Animated Lock -->
-    <div id="lockIcon" style="
-      font-size:60px;
-      transition:0.4s;
-      filter:drop-shadow(0 0 12px rgba(255,71,199,0.4));
-    ">
-      🔒
+  <div class="password-card">
+
+    <div id="lockIcon" style="font-size:64px;margin-bottom:10px">🔒</div>
+
+    <div class="holo">Enter Secret Password</div>
+    <div class="neon-sub" style="margin-top:4px">
+      Only for my cute chikkuuu<span style="font-family: emoji; color: #ffd6f9; filter: drop-shadow(0 0 6px #ff47c7);">
+  💗🐣
+</span>
     </div>
 
-    <div class="holo" style="margin-top:10px">Enter Secret Password <span style="font-family: emoji; color: #ffd6f9; filter: drop-shadow(0 0 6px #ff47c7);">
- 💗
-</span></div>
-<div class="neon-sub">
-  Only for my cute chikkuuu 
-<span style="font-family: emoji; color: #ffd6f9; filter: drop-shadow(0 0 6px #ff47c7);">
-  🐣
-</span>
-
-</div>
-
-    <input 
+    <input
       id="passwordInput"
       type="password"
       placeholder="Enter password"
-      style="
-        padding:12px 18px;
-        border-radius:14px;
-        border:none;
-        outline:none;
-        margin-top:20px;
-        font-size:18px;
-        background:rgba(255,255,255,0.1);
-        color:white;
-        width:230px;
-        text-align:center;
-        box-shadow:0 0 18px rgba(0,212,255,0.15);
-      "
+      class="password-input"
     />
 
-    <button id="passwordBtn" class="btn" style="margin-top:14px">
+    <button id="passwordBtn" class="password-btn">
       Unlock ❤️
     </button>
 
     <div id="passwordError" style="
       color:#ff6ea6;
-      margin-top:10px;
+      margin-top:12px;
       font-size:14px;
       font-weight:600;
       display:none;
-    ">Wrong password rah babi 😭</div>
+    ">
+      Wrong password rah babi 😭
+    </div>
+
+    <div id="passwordHint" style="
+      margin-top:10px;
+      font-size:13px;
+      color:#9deaff;
+      opacity:0.75;
+      font-weight:500;
+    "><br>
+      Hint: Vizagg police dailogg ✌️
+    </div>
+
   </div>
-  <div id="passwordHint" style="
-  margin-top:4px;
-  font-size:13px;
-  color:#9deaff;
-  opacity:0.75;
-  font-weight:500;
-  text-align:center;
-">
-  Hint: Vizagg police dailogg ✌️
 </div>
 
 
 
+
 </section>
+
+
+
 
 <audio id="bgMusic" loop>
   <source src="perfect.mp3" type="audio/mpeg">
@@ -1031,7 +1101,7 @@
 
         <div class="right">
           <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
-            <div class="holo">Cake & Candle<span class="emoji">🎂</span></div>
+            <div class="holo">Cake & Candle  <span class="emoji">🎂🕯️</span></div>
             <div class="neon-sub">Decorate it and light the candle to continue rahh haa</div>
           </div>
         </div>
