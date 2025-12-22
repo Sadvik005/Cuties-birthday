@@ -890,11 +890,9 @@
   100% { transform: scale(1); filter: drop-shadow(0 0 10px #ff47c7); }
 }
 
-/* Input redesign */
 .password-input {
   width: 100%;
-  padding: 14px 18px;
-  margin-top: 18px;
+  padding: 14px 48px 14px 18px; /* 👈 space for eye */
   border-radius: 16px;
   border: 1px solid rgba(255,255,255,0.18);
   background: rgba(0,0,0,0.35);
@@ -903,7 +901,6 @@
   text-align: center;
   outline: none;
   transition: 0.3s;
-  box-shadow: inset 0 0 0 rgba(255,255,255,0);
 }
 
 .password-input:focus {
@@ -932,6 +929,70 @@
   box-shadow: 0 24px 70px rgba(159,122,234,0.75);
 }
 
+/* PASSWORD FIELD WRAPPER */
+.password-field {
+  position: relative;
+  width: 100%;
+}
+
+#togglePassword {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 40px;
+  width: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  font-size: 20px;
+  line-height: 1;        /* 🔥 VERY IMPORTANT */
+  color: #ffffff;
+  opacity: 0.9;
+
+  filter: none !important;      /* 🚫 kill ghost eye */
+  text-shadow: none !important; /* 🚫 kill ghost eye */
+
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+#togglePassword:hover {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.15);
+}
+/* Hide default browser password eye */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+
+.password-field {
+  position: relative;
+  width: 100%;
+  margin-top: 18px;   /* 👈 move spacing to wrapper */
+}
+
+
+/* Hover / Tap */
+#togglePassword:hover {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.2);
+  filter: drop-shadow(0 0 6px #9f7aea);
+}
+
+/* Mobile tap feel */
+#togglePassword:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+
 
 
 
@@ -954,12 +1015,18 @@
 </span>
     </div>
 
-    <input
-      id="passwordInput"
-      type="password"
-      placeholder="Enter password"
-      class="password-input"
-    />
+ <div class="password-field">
+  <input
+    id="passwordInput"
+    type="password"
+    placeholder="Enter password"
+    class="password-input"
+  />
+  <button type="button" id="togglePassword" aria-label="Show password">
+    👁️
+  </button>
+</div>
+
 
     <button id="passwordBtn" class="password-btn">
       Unlock ❤️
@@ -1795,6 +1862,20 @@ setTimeout(() => {
     }, 350);
   }
 }
+
+
+const togglePassword = document.getElementById("togglePassword");
+
+togglePassword.addEventListener("click", () => {
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    togglePassword.innerText = "🙈"; // hide icon
+  } else {
+    passwordInput.type = "password";
+    togglePassword.innerText = "👁️"; // show icon
+  }
+});
+
 
 // 🔒 Lock shaking animation
 const shakeStyles = document.createElement("style");
