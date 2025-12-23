@@ -993,6 +993,143 @@ input[type="password"]::-ms-clear {
 }
 
 
+.timeline-item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.timeline-item .time {
+  font-weight: 800;
+  color: var(--neon-pink);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.timeline-item p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #e6f9ff;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .timeline-item {
+    font-size: 15px;
+  }
+}
+
+
+/* 🌸 REALISTIC IMAGE TIMELINE */
+.timeline {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* center line */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 3px;
+  height: calc(100% - 40px);
+  background: linear-gradient(var(--neon-pink), var(--neon-blue));
+  transform: translateX(-50%);
+  opacity: 0.3;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.7s ease;
+}
+
+.timeline-item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.timeline-item.left {
+  flex-direction: row;
+}
+
+.timeline-item.right {
+  flex-direction: row-reverse;
+}
+
+/* image */
+.timeline-img {
+  width: 160px;
+  height: 160px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.6);
+  border: 2px solid rgba(255,255,255,0.15);
+}
+
+.timeline-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* content */
+.timeline-content {
+  max-width: 280px;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.14),
+    rgba(255,255,255,0.04)
+  );
+  padding: 16px 18px;
+  border-radius: 14px;
+  backdrop-filter: blur(10px);
+}
+
+.timeline-content .time {
+  font-weight: 800;
+  color: var(--neon-pink);
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* 📱 MOBILE — STACK */
+@media (max-width: 700px) {
+  .timeline::before {
+    display: none;
+  }
+
+  .timeline-item {
+    flex-direction: column !important;
+    text-align: center;
+  }
+
+  .timeline-content {
+    max-width: 100%;
+  }
+}
+
+
+#timeline {
+  min-height: 120vh;
+}
+
+.timeline-img video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+}
 
 
 
@@ -1236,9 +1373,89 @@ input[type="password"]::-ms-clear {
     </div>
   </div>
   <div style="text-align:center;margin-top:18px">
-    <button id="giftContinue" class="btn" style="display:none">Continue to gallery 📸✨</button>
+    <button id="giftContinue" class="btn" style="display:none">Continue to memories✨</button>
   </div>
 </section>
+
+
+<!-- TIMELINE PAGE -->
+<section id="timeline" class="page" aria-live="polite">
+
+  <div style="text-align:center;margin-bottom:20px;margin-top:30px">
+    <div class="holo">Our Little Timeline 💫</div>
+    <div class="neon-sub">Moments that made us, us</div>
+  </div>
+
+  <div class="timeline">
+
+  <div class="timeline-item left">
+    <div class="timeline-img">
+  <video
+    src="vdo.mp4"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata">
+  </video>
+</div>
+
+    <div class="timeline-content">
+      <span class="time">2023-oct</span>
+      <p>That first conversation… simple but unforgettable 💬</p>
+    </div>
+  </div>
+
+  <div class="timeline-item right">
+    <div class="timeline-img">
+      <img src="rjy1.jpg" alt="2020 memory">
+    </div>
+    <div class="timeline-content">
+      <span class="time">2024-may</span>
+     The second meeting wasn’t just a meeting… it was a reminder that some bonds only grow stronger.
+    </div>
+  </div>
+
+  <div class="timeline-item left">
+    <div class="timeline-img">
+      <img src="srirangam1.jpg" alt="2022 memory">
+    </div>
+    <div class="timeline-content">
+      <span class="time">2024-may</span>
+       <p>Laughs, fights, care, and growing closer 💗</p>
+    </div>
+  </div>
+
+  <div class="timeline-item right">
+    <div class="timeline-img">
+      <img src="vizag1.jpg" alt="2025 memory">
+    </div>
+    <div class="timeline-content">
+      <span class="time">2025-feb</span>
+       <p>You became my comfort, my peace 🫂</p>
+    </div>
+  </div>
+
+    <div class="timeline-item left">
+    <div class="timeline-img">
+      <img src="v1 (2).jpg" alt="2025 memory">
+    </div>
+    <div class="timeline-content">
+      <span class="time">2025-june</span>
+      <p>Still here. Still us. Still special ✨</p>
+    </div>
+  </div>
+
+</div>
+
+
+  <div style="text-align:center;margin-top:24px">
+    <button id="timelineNext" class="btn">Continue to Gallery 📸</button>
+  </div>
+
+</section>
+
+
 
 
     <!-- GALLERY -->
@@ -1364,11 +1581,17 @@ function show(pageId){
 
   // app card scrollable logic
   const appCard = document.getElementById('appCard');
-  if (pageId === "balloonPage" || pageId === "gallery" || pageId === "final") {
-      appCard.classList.add("scrollable");
-  } else {
-      appCard.classList.remove("scrollable");
-  }
+if (
+  pageId === "balloonPage" ||
+  pageId === "timeline" ||   // ✅ ADD THIS
+  pageId === "gallery" ||
+  pageId === "final"
+) {
+    appCard.classList.add("scrollable");
+} else {
+    appCard.classList.remove("scrollable");
+}
+
 }
 
 
@@ -1655,9 +1878,10 @@ setTimeout(() => giftBox.style.display = "none", 400);
 
 // 👉 CONTINUE TO GALLERY BUTTON FIX
 giftContinue.addEventListener("click", () => {
-  show("gallery");
+show("timeline");
+setTimeout(revealTimeline, 300);
 
-  // optional celebration
+// optional celebration
   confetti({
     particleCount: 120,
     spread: 160,
@@ -1898,6 +2122,11 @@ shakeStyles.innerHTML = `
 `;
 document.head.appendChild(shakeStyles);
 
+document.getElementById("timelineNext").addEventListener("click", () => {
+  show("gallery");
+});
+
+
 // start app on password page
 show("loading");
 typeLine();  // start typing animation immediately
@@ -1990,6 +2219,38 @@ document.addEventListener("touchstart", handleHeartTap, { passive: true });
 // 🖥️ DESKTOP
 document.addEventListener("mousedown", handleHeartTap);
 
+
+
+// 📜 Timeline scroll reveal
+function revealTimeline() {
+  const container = document.getElementById("appCard");
+  const cRect = container.getBoundingClientRect();
+
+  document.querySelectorAll(".timeline-item").forEach(item => {
+    const rect = item.getBoundingClientRect();
+    if (rect.top < cRect.bottom - 60) {
+      item.classList.add("show");
+    }
+  });
+}
+
+
+document.getElementById("appCard").addEventListener("scroll", revealTimeline);
+
+
+function controlTimelineVideos() {
+  document.querySelectorAll(".timeline video").forEach(v => {
+    const rect = v.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      v.play().catch(()=>{});
+    } else {
+      v.pause();
+    }
+  });
+}
+
+document.getElementById("appCard")
+  .addEventListener("scroll", controlTimelineVideos);
 
 
 
