@@ -1132,6 +1132,295 @@ input[type="password"]::-ms-clear {
 }
 
 
+/* 📖 BOOK LETTER STYLE */
+
+.book-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.book {
+  width: 100%;
+  max-width: 420px;
+  perspective: 1200px;
+}
+
+.book-page {
+  background:
+    linear-gradient(180deg, #fffdf8, #f3efe7),
+    url("https://www.transparenttextures.com/patterns/paper-fibers.png");
+  color: #3a2c2c;
+
+  border-radius: 14px;
+  padding: 28px 26px;
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.45),
+    inset 0 0 0 1px rgba(0,0,0,0.08);
+
+  transform-origin: left;
+  animation: openBook 1.2s ease forwards;
+}
+
+@keyframes openBook {
+  from {
+    transform: rotateY(-12deg) scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: rotateY(0deg) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Book title */
+.book-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 18px;
+  color: #7a3b5e;
+}
+
+/* Letter content */
+.book-content {
+  font-family: 'Dancing Script', cursive;
+  font-size: 20px;
+  line-height: 1.8;
+}
+
+.book-content p {
+  margin-bottom: 16px;
+}
+
+/* Signature */
+.signature {
+  text-align: right;
+  font-family: 'Pacifico', cursive;
+  font-size: 22px;
+  color: #b84b7a;
+  margin-top: 24px;
+}
+
+/* Mobile polish */
+@media (max-width: 500px) {
+  .book-content {
+    font-size: 18px;
+  }
+
+  .book-title {
+    font-size: 26px;
+  }
+}
+
+.book-page {
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.45),
+    0 0 25px rgba(255,183,230,0.35);
+}
+
+
+.signature {
+  opacity: 0;
+  animation: signIn 1s ease forwards;
+  animation-delay: 1.3s;
+}
+
+@keyframes signIn {
+  to { opacity: 1; }
+}
+
+/* 📖 MULTI PAGE BOOK */
+
+.book {
+  max-width: 420px;
+  width: 100%;
+  perspective: 1400px;
+}
+
+.book-inner {
+  position: relative;
+  width: 100%;
+  height: auto;
+  min-height: 380px;
+}
+
+.book-page {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(180deg, #fffdf8, #f3efe7),
+    url("https://www.transparenttextures.com/patterns/paper-fibers.png");
+
+  border-radius: 14px;
+  padding: 28px 26px;
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.45),
+    inset 0 0 0 1px rgba(0,0,0,0.08);
+
+  opacity: 0;
+  transform: rotateY(12deg) scale(0.96);
+  transition: all 0.8s ease;
+  pointer-events: none;
+}
+
+.book-page.active {
+  opacity: 1;
+  transform: rotateY(0deg) scale(1);
+  pointer-events: auto;
+  z-index: 2;
+}
+
+/* Controls */
+.book-controls {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+/* Mobile polish */
+@media (max-width: 500px) {
+  .book-inner {
+    min-height: 340px;
+  }
+}
+
+/* 🎂 Cake Pedestal Glow */
+.cake-wrap {
+  position: relative;
+}
+
+.cake-wrap::after {
+  content: "";
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 40px;
+  background: radial-gradient(circle, rgba(255,214,249,0.6), transparent 70%);
+  filter: blur(18px);
+  z-index: -1;
+}
+
+/* 🍒 Cherry pop animation */
+.cherry {
+  transform: scale(0);
+  transform-origin: center;
+  animation: cherryPop 0.6s ease forwards;
+}
+
+.cherry:nth-child(1) { animation-delay: 0.2s; }
+.cherry:nth-child(2) { animation-delay: 0.35s; }
+.cherry:nth-child(3) { animation-delay: 0.5s; }
+
+@keyframes cherryPop {
+  0%   { transform: scale(0); }
+  70%  { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+/* 🍫 Chocolate drip animation */
+#chocoDrip {
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  animation: chocoDraw 1s ease forwards;
+  animation-delay: 0.4s;
+}
+
+@keyframes chocoDraw {
+  to { stroke-dashoffset: 0; }
+}
+/* ===========================
+   🌈 UNIVERSAL BUTTON GRADIENT
+   =========================== */
+
+button,
+.btn,
+.neon-btn {
+  position: relative;
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: .4px;
+
+  color: #120015;
+  background: linear-gradient(
+    120deg,
+    #ffd6f9,
+    #cfa9ff,
+    #9f7aea,
+    #b8f6ff
+  );
+  background-size: 300% 300%;
+
+  box-shadow:
+    0 14px 40px rgba(159,122,234,0.45),
+    inset 0 0 0 1px rgba(255,255,255,0.35);
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    background-position .6s ease;
+}
+
+/* ✨ Gradient animation */
+button:hover,
+.btn:hover,
+.neon-btn:hover {
+  background-position: 100% 50%;
+  transform: translateY(-4px) scale(1.03);
+  box-shadow:
+    0 22px 70px rgba(159,122,234,0.75),
+    0 0 24px rgba(255,214,249,0.7);
+}
+
+/* 👆 Click / tap feel */
+button:active,
+.btn:active,
+.neon-btn:active {
+  transform: translateY(0) scale(0.96);
+  box-shadow:
+    0 10px 24px rgba(159,122,234,0.45);
+}
+
+/* 💫 Extra glow ring */
+button::after,
+.btn::after,
+.neon-btn::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(
+    120deg,
+    rgba(255,214,249,0.6),
+    rgba(159,122,234,0.6),
+    rgba(184,246,255,0.6)
+  );
+  filter: blur(12px);
+  opacity: 0.45;
+  z-index: -1;
+}
+
+/* 🚫 Disabled buttons */
+button:disabled,
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+
 
 </style>
 </head>
@@ -1264,6 +1553,7 @@ input[type="password"]::-ms-clear {
         <div class="left">
           <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
             <svg class="cake" viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              
               <defs>
                 <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
                   <stop offset="0" stop-color="#ff79d6"/>
@@ -1290,6 +1580,26 @@ input[type="password"]::-ms-clear {
                 <path class="flame" d="M150 54 Q156 68 150 76 Q144 68 150 54" fill="#ffd49a" />
                 <path d="M150 60 Q153 68 150 74 Q147 68 150 60" fill="#ff8ad6" opacity="0.9"/>
               </g>
+<!-- 🎂 Cake Decorations -->
+<g id="cakeDecor" opacity="0">
+
+  <!-- 🍒 Cherries -->
+  <circle class="cherry" cx="110" cy="100" r="6" fill="#ff2f6d"/>
+  <circle class="cherry" cx="150" cy="95"  r="6" fill="#ff2f6d"/>
+  <circle class="cherry" cx="190" cy="100" r="6" fill="#ff2f6d"/>
+
+  <!-- 🍫 Chocolate drizzle -->
+  <path
+    id="chocoDrip"
+    d="M75 118 Q115 105 150 118 T225 118"
+    stroke="#4b1e1e"
+    stroke-width="6"
+    fill="none"
+    stroke-linecap="round"
+  />
+</g>
+
+
             </svg>
 
             <div style="display:flex;gap:10px;align-items:center">
@@ -1458,6 +1768,8 @@ input[type="password"]::-ms-clear {
 
 
 
+
+
     <!-- GALLERY -->
     <section id="gallery" class="page" aria-live="polite">
       <div style="text-align:center;margin-bottom:12px">
@@ -1514,27 +1826,68 @@ input[type="password"]::-ms-clear {
 </section>
 
 
+<section id="final" class="page" aria-live="polite">
+  <div class="book-wrapper">
 
-    <!-- FINAL LETTER -->
-    <section id="final" class="page" aria-live="polite">
-      <div id="finalInner">
-        <div style="text-align:center">
-          <div class="holo" style="font-size:30px">A Letter Form butta <span style="font-family: emoji; color: #ffd6f9; filter: drop-shadow(0 0 6px #ff47c7);">🐰🐇💌</span></div>
+    <div class="book">
+      <div class="book-inner" id="bookInner">
+
+        <!-- PAGE 1 -->
+        <div class="book-page active">
+          <div class="book-title">A Letter From Butta 💌</div>
+          <div class="book-content">
+            <p>[ Page 1 content goes here… ]</p>
+          </div>
         </div>
 
-        <div id="letterText" style="margin-top:14px">
-          <p>Sometimes people arrive and quietly become a soft, constant light in our life. You are that glow — warm, kind, and full of gentle courage. On this day, I wish you sparkling moments that feel like neon promises: bright, hopeful, and unforgettable. Keep shining, keep dreaming, and never stop being the tender, fierce heart you are. I’m grateful for every little piece of you. Happy birthday, Chickammagu — today and always, you are deeply loved.</p>
-          <p style="text-align:right; margin-top:18px; font-family:Pacifico; font-size:22px; color:#ffb7e6;">
-  — Yash💖
-</p>
-
+        <!-- PAGE 2 -->
+        <div class="book-page">
+          <div class="book-title">Page Two ✨</div>
+          <div class="book-content">
+            <p>[ Page 2 content goes here… ]</p>
+          </div>
         </div>
 
-        <div style="display:flex;justify-content:center;margin-top:16px">
-          <button id="viewAgain" class="btn">🔁 View Again</button>
+        <!-- PAGE 3 -->
+        <div class="book-page">
+          <div class="book-title">Page Three 💗</div>
+          <div class="book-content">
+            <p>[ Page 3 content goes here… ]</p>
+          </div>
         </div>
+
+        <!-- PAGE 4 -->
+        <div class="book-page">
+          <div class="book-title">Always Yours 🐣</div>
+          <div class="book-content">
+            <p>[ Final page content goes here… ]</p>
+            <p class="signature">— Yash 💖</p>
+          </div>
+        </div>
+
       </div>
-    </section>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="book-controls">
+      <button id="prevPage" class="btn">⬅ Previous</button>
+      <button id="nextPage" class="btn">Next ➡</button>
+    </div>
+
+      <button id="viewAgain" class="btn" style="margin-top:18px">
+      🔁 Read from Start
+    </button>
+
+  </div>
+</section>
+
+
+
+<audio id="pageSound">
+  <source src="page-flip.mp3" type="audio/mpeg">
+</audio>
+
+
 
 
   </div>
@@ -1562,6 +1915,8 @@ input[type="password"]::-ms-clear {
 
 
 <script>
+
+
 /* ---------------------------
    Utility & navigation
    --------------------------- */
@@ -1681,11 +2036,19 @@ const lightBtn = document.getElementById('light');
 const icing = document.getElementById('icing');
 const flame = document.getElementById('flame');
 const cakeText = document.getElementById('cakeText');
+const cakeDecor = document.getElementById('cakeDecor');
+
+
+
 
 decorateBtn.addEventListener('click', ()=>{
   icing.style.transition = 'opacity .9s ease, transform .9s';
   icing.style.opacity = 1;
   icing.style.transform = 'translateY(0)';
+
+    // 🍒🍫 SHOW CHERRIES & CHOCOLATE
+  cakeDecor.style.transition = "opacity .8s ease";
+  cakeDecor.style.opacity = 1;
   decorateBtn.style.display = 'none';
   lightBtn.style.display = 'inline-block';
 
@@ -1939,6 +2302,10 @@ document.getElementById('toLetter').addEventListener('click', ()=>{
   document.getElementById("bgMusic").pause();   // ← ADD THIS HERE
   
   show('final');
+
+  currentPage = 0;
+showPage(0);
+
   startHearts();
   confetti({particleCount:120,spread:160,origin:{y:0.6}});
 });
@@ -1963,12 +2330,13 @@ function startHearts(){ stopHearts(); heartInterval = setInterval(spawnHeart, 48
 function stopHearts(){ if(heartInterval) clearInterval(heartInterval); heartInterval = null; }
 
 /* ---------------------------
-   View again (reset)
+   View again (reset) — FIXED
    --------------------------- */
 document.getElementById('viewAgain').addEventListener('click', ()=>{
 
-  stopHearts(); 
-  heartsEl.innerHTML='';
+  // stop final hearts
+  stopHearts();
+  heartsEl.innerHTML = '';
 
   // reset cake
   icing.style.opacity = 0;
@@ -1979,22 +2347,35 @@ document.getElementById('viewAgain').addEventListener('click', ()=>{
 
   // reset balloons
   balloonGrid.innerHTML = '';
+  poppedCount = 0;
 
   // reset gallery
-  current = 0; 
+  current = 0;
   go(0);
 
-  // show intro text again
+  // reset book
+  currentPage = 0;
+  showPage(0);
+
+  // reset intro UI
   document.querySelector('#intro .holo').style.display = "block";
   document.querySelector('#intro .neon-sub').style.display = "block";
   startBtn.style.display = "inline-block";
-
-  // hide countdown until clicking start
   countEl.style.display = "none";
 
-  // go back to intro
+  // pause music
+  document.getElementById("bgMusic").pause();
+  document.getElementById("bgMusic").currentTime = 0;
+
+
+  document.getElementById("appCard").style.opacity = "0";
+setTimeout(()=>{
+  document.getElementById("appCard").style.opacity = "1";
   show('intro');
+}, 400);
+
 });
+
 
 /* ---------------------------
    Accessibility: Enter to start
@@ -2251,6 +2632,45 @@ function controlTimelineVideos() {
 
 document.getElementById("appCard")
   .addEventListener("scroll", controlTimelineVideos);
+
+
+function playPageFlip() {
+  const sound = new Audio(
+    "https://assets.mixkit.co/active_storage/sfx/1146/1146-preview.mp3"
+  );
+  sound.volume = 0.7;
+  sound.play();
+}
+
+
+
+/* 📖 BOOK PAGE FLIP LOGIC */
+
+const pages = document.querySelectorAll(".book-page");
+let currentPage = 0;
+
+function showPage(index) {
+  pages.forEach((p, i) => {
+    p.classList.toggle("active", i === index);
+  });
+}
+
+document.getElementById("nextPage").addEventListener("click", () => {
+  if (currentPage < pages.length - 1) {
+    currentPage++;
+    showPage(currentPage);
+    playPageFlip();   // 🔊 WORKS 100%
+  }
+});
+
+document.getElementById("prevPage").addEventListener("click", () => {
+  if (currentPage > 0) {
+    currentPage--;
+    showPage(currentPage);
+    playPageFlip();   // 🔊 WORKS 100%
+  }
+});
+
 
 
 
