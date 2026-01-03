@@ -1420,6 +1420,13 @@ button:disabled,
   box-shadow: none;
 }
 
+#decorate,
+#decorate * {
+  color: #000 !important;
+}
+
+
+
 
 
 </style>
@@ -1692,67 +1699,105 @@ button:disabled,
 <section id="timeline" class="page" aria-live="polite">
 
   <div style="text-align:center;margin-bottom:20px;margin-top:30px">
-    <div class="holo">Our Little Timeline 💫</div>
-    <div class="neon-sub">Moments that made us, us</div>
-  </div>
-
-  <div class="timeline">
-
-  <div class="timeline-item left">
-    <div class="timeline-img">
-  <video
-    src="vdo.mp4"
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="metadata">
-  </video>
+  <div class="holo">Our Little Timeline 💫</div>
+  <div class="neon-sub">Moments that made us, us</div>
 </div>
 
+<div class="timeline">
+
+  <!-- 1 -->
+  <div class="timeline-item left">
+    <div class="timeline-img">
+      <video
+        src="vdo.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata">
+      </video>
+    </div>
     <div class="timeline-content">
-      <span class="time">2023-oct</span>
+      <span class="time">2023 • Oct</span>
       <p>That first conversation… simple but unforgettable 💬</p>
     </div>
   </div>
 
+  <!-- 2 -->
   <div class="timeline-item right">
     <div class="timeline-img">
-      <img src="rjy1.jpg" alt="2020 memory">
+      <img src="rjy1.jpg" alt="2024 memory">
     </div>
     <div class="timeline-content">
-      <span class="time">2024-may</span>
-     The second meeting wasn’t just a meeting… it was a reminder that some bonds only grow stronger.
+      <span class="time">2024 • May</span>
+      <p>The second meeting wasn’t just a meeting… it was a reminder that some bonds only grow stronger 🌱</p>
     </div>
   </div>
 
+  <!-- 3 -->
   <div class="timeline-item left">
     <div class="timeline-img">
-      <img src="srirangam1.jpg" alt="2022 memory">
+      <img src="srirangam1.jpg" alt="2024 memory">
     </div>
     <div class="timeline-content">
-      <span class="time">2024-may</span>
-       <p>Laughs, fights, care, and growing closer 💗</p>
+      <span class="time">2024 • May</span>
+      <p>Laughs, fights, care, and growing closer 💗</p>
     </div>
   </div>
 
-  <div class="timeline-item right">
+  <!-- 4 -->
+<div class="timeline-item right">
+  <div class="timeline-img">
+    <img src="DEC24.jpg" alt="2024 December memory">
+  </div>
+  <div class="timeline-content">
+    <span class="time">2024 • Dec</span>
+    <p>Being with you feels like peace.🫂</p>
+  </div>
+</div>
+
+
+  <!-- 4 -->
+  <div class="timeline-item left">
     <div class="timeline-img">
       <img src="vizag1.jpg" alt="2025 memory">
     </div>
     <div class="timeline-content">
-      <span class="time">2025-feb</span>
-       <p>You became my comfort, my peace 🫂</p>
+      <span class="time">2025 • Feb</span>
+      <p>You became my comfort, my peace 🫂</p>
     </div>
   </div>
 
-    <div class="timeline-item left">
+  <!-- 5 -->
+  <div class="timeline-item right">
     <div class="timeline-img">
       <img src="v1 (2).jpg" alt="2025 memory">
     </div>
     <div class="timeline-content">
-      <span class="time">2025-june</span>
+      <span class="time">2025 • June</span>
       <p>Still here. Still us. Still special ✨</p>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="timeline-item left">
+    <div class="timeline-img">
+      <img src="AUG.jpg" alt="2025 memory">
+    </div>
+    <div class="timeline-content">
+      <span class="time">2025 • Aug</span>
+      <p>In the middle of chaos, you felt like home 🏡</p>
+    </div>
+  </div>
+
+  <!-- 7 -->
+  <div class="timeline-item right">
+    <div class="timeline-img">
+      <img src="DEC.jpg" alt="Forever memory">
+    </div>
+    <div class="timeline-content">
+      <span class="time">2025 • dec - Forever ♾️</span>
+      <p>No matter the time or distance… I choose us, always ❤️</p>
     </div>
   </div>
 
@@ -1794,6 +1839,10 @@ button:disabled,
           <div class="slide"><img src="SP BRO (9).jpg" alt="gallery 3"></div>
           <div class="slide"><img src="SP BRO (15).jpg" alt="gallery 1"></div>
           <div class="slide"><img src="SP BRO (14).jpg" alt="gallery 1"></div>
+          <div class="slide"><img src="vizag1.jpg" alt="gallery 1"></div>
+          <div class="slide"><img src="VIZAG (1).jpg" alt="gallery 3"></div>
+          <div class="slide"><img src="VIZAG (2).jpg" alt="gallery 3"></div>
+          <div class="slide"><img src="VIZAG (3).jpg" alt="gallery 3"></div>
           </div>
          </div>
          <div class="dots" id="dots" aria-hidden="false"></div>
@@ -2418,7 +2467,7 @@ passwordInput.addEventListener("keydown", (e)=>{
 
 function checkPassword() {
   const typed = passwordInput.value.trim();
-
+                                                                                                
 if (
   typed === REAL_PASSWORD ||
   typed === REAL_PASSWORD1 ||
@@ -2671,10 +2720,6 @@ document.getElementById("prevPage").addEventListener("click", () => {
   }
 });
 
-
-
-
-
 </script>
 <script async src="https://tenor.com/embed.js"></script>
 <div id="easterEgg" style="
@@ -2705,15 +2750,10 @@ document.getElementById("prevPage").addEventListener("click", () => {
       This was meant only for you 🐣
     </div>
 
-    <button onclick="closeEgg()" class="btn" style="margin-top:16px">
-      Awww 💖
+    Awww 💖   <button onclick="closeEgg()" class="btn" style="margin-top:16px">
+   
     </button>
   </div>
 </div>
-
-
-
-
-
 </body>
 </html>
