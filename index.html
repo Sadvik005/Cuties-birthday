@@ -33,21 +33,33 @@
 
   /* ---------- Reset & Layout ---------- */
   *{box-sizing:border-box}
-  html,body{height:100%;margin:0;background:
-    radial-gradient(900px 420px at 12% 10%, rgba(0,212,255,0.04), transparent),
-    linear-gradient(180deg,var(--bg-1),var(--bg-2));
-    color:#e6f9ff;font-family:'Poppins',sans-serif; -webkit-font-smoothing:antialiased;overflow-x:hidden;
-   height: 100%;
-  overflow: hidden;   /* 🔒 lock body */
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100dvh;
+  background: linear-gradient(180deg,#080014,#160029);
+  overflow-x: hidden;
 }
 
+
+
 /* allow scroll when NOT password page */
-body:not(.password-active){
-  overflow: auto;
-}
+
   img{max-width:100%;display:block}
   button{font-family:inherit}
-  .app{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.app {
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 16px;
+  overflow-y: auto;
+}
+
+.card {
+  margin: auto;
+}
+
 
   /* page card wrapper (centered, responsive) */
   .card {
@@ -69,19 +81,16 @@ body:not(.password-active){
 #passwordPage {
   position: fixed;
   inset: 0;
-  z-index: 9999;
-
-  display: none;                 /* 🔑 DEFAULT HIDDEN */
+  min-height: 100dvh;
+  display: none;
   align-items: center;
   justify-content: center;
-
-  overflow-y: auto;
   padding: 24px;
+  background: transparent;
 }
 
-/* SHOW ONLY WHEN ACTIVE */
 #passwordPage.show {
-  display: flex;                 /* 🔑 SHOW ONLY WITH .show */
+  display: flex;
 }
 
 
@@ -97,8 +106,8 @@ body.password-active .app {
 }
 
 .app {
-  min-height: 100vh;
-  overflow-y: auto;        /* ✅ only app scrolls */
+ min-height: 100dvh;
+ overflow-y: auto;        /* ✅ only app scrolls */
   -webkit-overflow-scrolling: touch;
 }
 
@@ -644,12 +653,10 @@ html {
   }
 }
 /* Make balloon page scrollable on mobile */
-@media (max-width: 740px) {
-  .card.scrollable {
-    max-height: 100vh !important;
-    overflow-y: auto !important;
-  }
+.card.scrollable {
+  overflow-y: auto;
 }
+
 
 @media (max-width: 740px) {
   .card.scrollable {
@@ -785,9 +792,19 @@ html {
   margin: 0 !important;
   padding-bottom: 0 !important;
 }
-.no-scroll {
-    overflow: hidden !important;
+body.password-active {
+  overflow: hidden;
 }
+
+body:not(.password-active) {
+  overflow: auto;
+}
+
+
+body:not(.password-active) .app {
+  overflow-y: auto;
+}
+
 
 .hide-footer {
     display: none !important;
@@ -1166,11 +1183,6 @@ input[type="password"]::-ms-clear {
   .timeline-content {
     max-width: 100%;
   }
-}
-
-
-#timeline {
-  min-height: 120vh;
 }
 
 .timeline-img video {
@@ -1599,14 +1611,11 @@ button:disabled,
     transform: scale(1.3);         /* safe for touch */
   }
 }
-
-/* 📱 MOBILE FIX — PASSWORD PAGE SCROLL BUG */
-@media (max-width: 768px) {
-  #passwordPage {
-    position: absolute;   /* ❌ stop fixed bug */
-    inset: 0;
-  }
+body.password-active footer {
+  display: none !important;
 }
+
+
 
 
 
@@ -2116,8 +2125,10 @@ I may not always say the right words, but my intentions for you are always pure.
 Even if I don’t message, even if I go quiet sometimes, my care for you never reduces. It stays constant, steady, and deep..
 
 You are one of those rare people who don’t even try to be special… you just are. And I feel lucky, truly lucky, to have you as my Chickammaguu 🐣💗<br>
-<p class="neon-red">
-If loving you is poison,I wouldn’t hesitate I’d happily ask for another glass.</p>
+<span class="neon-red">
+If loving you is poison, I wouldn’t hesitate — I’d happily ask for another glass.
+</span><br>
+
 babuuuu papayiiii aga e letter page lo hearts velthu untayy gadhaa anduloo edho oka heart ni 5 times nokku neko surprise ostundhii rahh haa💗.
 
 Happy Birthday once again rah mabbuuuulu cutieee 🤍
