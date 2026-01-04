@@ -57,6 +57,38 @@
   .center{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px}
   .holo{font-family:'Pacifico';font-size:26px;background:linear-gradient(90deg,#fff,#fff3);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 36px rgba(0,212,255,0.08));text-align:center}
   .neon-sub{color:transparent;background:var(--accent);-webkit-background-clip:text;background-clip:text;font-weight:700;font-size:13px;letter-spacing:.6px;text-align:center}
+/* ================= PASSWORD PAGE FIX ================= */
+
+/* PASSWORD PAGE — CORRECT VISIBILITY CONTROL */
+#passwordPage {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: none;                 /* 🔑 DEFAULT HIDDEN */
+  align-items: center;
+  justify-content: center;
+
+  overflow-y: auto;
+  padding: 24px;
+}
+
+/* SHOW ONLY WHEN ACTIVE */
+#passwordPage.show {
+  display: flex;                 /* 🔑 SHOW ONLY WITH .show */
+}
+
+
+/* center wrapper should not force height */
+#passwordPage .center {
+  min-height: unset !important;
+  height: auto !important;
+}
+
+/* hide big app card visually */
+body.password-active .app {
+  display: none;
+}
 
   /* loader typing */
   #typingText{font-family:'Pacifico';color:var(--neon-blue);font-size:18px;text-shadow:0 6px 24px rgba(0,212,255,0.12);min-height:48px}
@@ -736,7 +768,6 @@
 }
 .no-scroll {
     overflow: hidden !important;
-    height: 70vh !important;
 }
 
 .hide-footer {
@@ -1424,8 +1455,131 @@ button:disabled,
 #decorate * {
   color: #000 !important;
 }
+/* 📱 FINAL LETTER — MOBILE FULL WIDTH FIX */
+@media (max-width: 600px) {
+  #final > div {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 20px 0 !important;
+    padding: 22px 18px !important;
+    border-radius: 18px;
+  }
+}
 
+/* 💌 FINAL LETTER — OPEN STYLE */
+#finalContent {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 10px 18px;
+}
 
+#finalContent p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  line-height: 1.9;
+  color: #ffffff;
+}
+
+/* Mobile polish */
+@media (max-width: 600px) {
+  #finalContent {
+    max-width: 100%;
+    padding: 8px 14px;
+  }
+
+  #finalContent p {
+    font-size: 16.5px;
+  }
+}
+
+.neon-red {
+  color: #ff2b2b;
+  font-size: 1.3em;
+  font-weight: 600;
+  text-align: center;
+  margin: 22px 0;
+  text-shadow:
+    0 0 6px #ff2b2b,
+    0 0 14px #ff2b2b,
+    0 0 28px #ff1a1a,
+    0 0 48px #ff0000;
+}
+/* ✨ GALLERY DOTS — NEON & SMOOTH */
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+
+  background: rgba(255,255,255,0.25);
+  box-shadow:
+    inset 0 0 4px rgba(255,255,255,0.6),
+    0 0 0 rgba(159,122,234,0);
+
+  transition:
+    transform 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+/* 🌈 ACTIVE DOT */
+.dot.active {
+  background: linear-gradient(135deg, #ff6fb1, #9f7aea);
+  transform: scale(1.7);
+
+  box-shadow:
+    0 0 10px rgba(255,111,177,0.9),
+    0 0 22px rgba(159,122,234,0.8),
+    inset 0 0 6px rgba(255,255,255,0.9);
+}
+
+/* 🫶 Hover effect (desktop) */
+.dot:hover {
+  transform: scale(1.4);
+  background: #ffd6f9;
+}
+.dot.active {
+  animation: pulseDot 1.4s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1.6); }
+  50% { transform: scale(1.9); }
+}
+/* 📱 MOBILE DOT POLISH — FINAL FIX */
+@media (max-width: 600px) {
+
+  .dots {
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    background: rgba(255,255,255,0.28);
+    box-shadow: none;              /* 🔥 remove heavy glow */
+    transform: scale(1);
+  }
+
+  .dot.active {
+    transform: scale(1.3);         /* 👌 subtle, not fat */
+    background: #ff6fb1;
+    box-shadow: 0 0 6px rgba(255,111,177,0.8);
+    animation: none;               /* 🔥 stop pulse on mobile */
+  }
+
+  .dot:hover {
+    transform: scale(1.3);         /* safe for touch */
+  }
+}
 
 
 
@@ -1875,59 +2029,79 @@ button:disabled,
 </section>
 
 <section id="final" class="page" aria-live="polite">
-  <div style="
-    max-width:520px;
-    margin:40px auto;
-    padding:30px 26px;
-    border-radius:20px;
-    background: linear-gradient(
-      180deg,
-      rgba(255,255,255,0.14),
-      rgba(255,255,255,0.05)
-    );
-    backdrop-filter: blur(14px);
-    border: 1px solid rgba(255,255,255,0.18);
-    box-shadow: 
-      0 30px 80px rgba(0,0,0,0.65),
-      0 0 30px rgba(159,122,234,0.35);
+
+  <!-- Title -->
+  <div class="holo" style="
+    font-size:28px;
     text-align:center;
-    animation: fadeUp .8s ease;
+    margin-top:30px;
+    margin-bottom:20px;
+    color:#ff6fb1;
+    background:none;
+    -webkit-background-clip:initial;
+    background-clip:initial;
+    text-shadow:
+      0 0 10px rgba(255,111,177,0.6),
+      0 0 22px rgba(255,111,177,0.45);
   ">
+    A Letter From Butta 💌
+  </div>
 
-<div class="holo" style="
-  font-size:28px;
-  color:#ff6fb1;
-  background:none;
-  -webkit-background-clip:initial;
-  background-clip:initial;
-  text-shadow:
-    0 0 10px rgba(255,111,177,0.6),
-    0 0 22px rgba(255,111,177,0.45);
-">
-  A Letter From Butta 💌
-</div>
+  <!-- Letter Content -->
+  <div id="finalContent">
 
-    <p style="
-      margin-top:18px;
-      font-family:'Dancing Script', cursive;
-      font-size:20px;
-      line-height:1.75;
-      color:#fff;
-    ">
-      Some people enter your life quietly… and somehow become your comfort without trying.<br>
-      You became that for me.<br><br>
+<p>Happiesttt Birthdayyyyy la cutieeee Chickammaguu 🐣💗
+Goveeee gouu sooo muchhhh rahhhh babiii ✨🤍
 
-      In moments when I didn’t have words, you felt like calm.<br>
-      In days that felt heavy, you felt like ease.<br><br>
+Even though our relationship is called cousins, my heart has always known you as a sister — my own sisterrr ha. The bond we share feels so natural and comforting, like something that was always meant to be. Your presence in my life has always felt familiar, warm, and safe in the most gentle way rahhh goluu gaa. Lotssss of love to the birthday gurllll💕
 
-      You didn’t rush me, didn’t change me — you simply stayed.<br>
-      And in staying, you became my peace 🫂<br><br>
+Every memory with you, whether big or small, carries a softness that I truly cherish. The way you treat everyone with your bujjiii heart honestly makes me love you even more rah Chickuuuulu 💗 You’re such a pureeee soul. And that moment when you said to red velvet owner cake chala bondhiiii yayyy sp broo that really melted my heart rahhh. Nen evaru ala chepadam chudaleduuu rahh aa shop owner kooda happy aipoyarrr🥹
 
-      If home were a feeling, it would feel a lot like you.
+This just shows how very different you are from this generation. It’s not about the cake or the owner — it’s about your kindness, your respect, your warmth… what else not You are reallyyyy a gemm akkaa💎
+
+I treat you like my own sister because that is how my heart sees you. I deeply love my own sister and she will always be closest to me, yet that never takes away from the special place you hold. Love doesn’t divide it simply grows. And you are someone my heart has chosen as family in the truest sense 🤍
+
+On this special day, I wish you peace that stays with you, happiness that feels gentle and real, and a life that treats you with the same kindness you give to others. May you always feel supported, valued, and loved. Thank you for being you, and for being a sister by heart.
+
+Sorry for the long letter rah babiii I just wanted to express how much you mean to me🥹 cheduvu full ga badudayyy. And sorry for always bothering you and asking for your attention, but… you are the only important person in my life whom I can’t loseee akkaa 🤍
+
+You have no idea how good it feels to wake up in the morning and see your texts through sleepy eyesss rahhh haa. After seeing your gm msg, I become veryyy happyyy 🥹💗 I care about you so much, that’s why I keep asking THINAVA THINAVA THINAVAAAA — don’t skip your lunch or dinner rah, thinuu badudayyy, drinkkk waterrr, or else I’ll complain to duckkk🦆
+
+After receiving your gn msg, only then I’ll sleep rahhh that’s my happiness before sleepinggg 🤍 If you share reels with me, I’ll be the happiest person everrr rahhh haa. You are my happinessssssssss rahhh haa. Even a veryyy very small conversation with you makes my heart so hapyyyyyyy. With you, everything feels lighter, calmer, and complete rahhh 🤍
+
+And akkaa… if I’m being honest from the deepest part of my heart 🥹🤍
+You are not just someone I care about — you are someone my heart feels attached to in the purest way. The thought of losing you scares me more than I can explain, because you’ve become such a calm, comforting presence in my life. You matter to me in ways I don’t even know how to put into words.
+
+Some people bring happiness loudly, but you bring it quietly — in good morning texts, in small check-ins, in simple conversations, in care that feels effortless and real. You don’t even realize how much peace you give me just by being you. On days when I feel low, even one message from you makes everything feel a little lighter.
+
+If life ever feels heavy for you, I hope you always remember that you have me — someone who genuinely cares, worries, prays, and wishes only good things for you. No matter what changes, no matter where life takes us, my care for you will always stay the same.
+
+Thank you for existing, akkaa. Thank you for being kind in a world that often isn’t. Thank you for being my cousin by relation and my sister by heart. I’ll always want you happy, safe, and smiling — even if I’m not around.
+And no matter how busy life gets, no matter how many people come and go, there will always be a part of my heart that looks for you in quiet moments. In happiness, in silence, in prayers — you’re always there 🤍
+
+I don’t need big moments with you, akkaa. Even ordinary days feel special just knowing you’re there, breathing somewhere under the same sky. That thought alone gives me comfort 🫶✨
+
+If someday you ever feel alone, tired, or unheard, I hope you remember this — there is someone who loves you silently, genuinely, and endlessly, without expectations, without conditions 🤍
+
+I may not always say the right words, but my intentions for you are always pure. I want nothing from you except your happiness, your peace, replies from you lol guess ki rave badudayyy em ayna ante ostuna gadha ra antav ravuu sage ge raa i'll be waitingg for your msgsss and that soft smile that makes everything feel okay 🥹🌸
+
+Even if I don’t message, even if I go quiet sometimes, my care for you never reduces. It stays constant, steady, and deep..
+
+You are one of those rare people who don’t even try to be special… you just are. And I feel lucky, truly lucky, to have you as my Chickammaguu 🐣💗<br>
+<p class="neon-red">
+If loving you is poison,I wouldn’t hesitate I’d happily ask for another glass.</p>
+babuuuu papayiiii aga e letter page lo hearts velthu untayy gadhaa anduloo edho oka heart ni 5 times nokku neko surprise ostundhii rahh haa💗.
+
+Happy Birthday once again rah mabbuuuulu cutieee 🤍
+You will always be special to me… always✨
+Em undhi le edhi ni buggal tho oka photo pampuu chudammm...nen echina gfit open chesey ha chepuu nachindhooo gedooo.
+
+LOVEE YOU SO MUCHHHHH RAHHHH BABIII🐣..You will alwayssss have me by your side no matter whatt
     </p>
 
+  <!-- Signature -->
     <div style="
-      margin-top:22px;
+      margin-top:30px;
       font-family:Pacifico;
       font-size:22px;
       color:#ffb7e6;
@@ -1936,7 +2110,8 @@ button:disabled,
       — Yash 💖
     </div>
 
-    <div style="margin-top:24px">
+    <!-- Button -->
+    <div style="text-align:center; margin-top:26px;">
       <button id="viewAgain" class="btn">🔁 Read from Start</button>
     </div>
 
@@ -1977,29 +2152,30 @@ function show(pageId){
   const el = document.getElementById(pageId);
   if(el) el.classList.add('show');
 
-  // When password page is active → no scroll & hide footer
+  const footer = document.querySelector("footer");
+
   if (pageId === "passwordPage") {
-      document.body.classList.add("no-scroll");
-      document.querySelector("footer").classList.add("hide-footer");
+    document.body.classList.add("no-scroll", "password-active");
+    footer.classList.add("hide-footer");
   } else {
-      document.body.classList.remove("no-scroll");
-      document.querySelector("footer").classList.remove("hide-footer");
+    document.body.classList.remove("no-scroll", "password-active");
+    footer.classList.remove("hide-footer");
   }
 
-  // app card scrollable logic
+  // scrollable pages inside app card
   const appCard = document.getElementById('appCard');
-if (
-  pageId === "balloonPage" ||
-  pageId === "timeline" ||   // ✅ ADD THIS
-  pageId === "gallery" ||
-  pageId === "final"
-) {
+  if (
+    pageId === "balloonPage" ||
+    pageId === "timeline" ||
+    pageId === "gallery" ||
+    pageId === "final"
+  ) {
     appCard.classList.add("scrollable");
-} else {
+  } else {
     appCard.classList.remove("scrollable");
+  }
 }
 
-}
 
 
 /* ---------------------------
