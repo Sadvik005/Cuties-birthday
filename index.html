@@ -1614,22 +1614,6 @@ button:disabled,
 body.password-active footer {
   display: none !important;
 }
-/* 🌊 EXTRA SMOOTH SCROLL FEEL */
-#appCard {
-  scroll-behavior: smooth;
-  overscroll-behavior: contain;
-  scroll-padding-top: 20px;
-}
-
-/* iOS-like momentum */
-.card.scrollable {
-  -webkit-overflow-scrolling: touch;
-}
-
-/* smoother text during scroll */
-* {
-  scroll-margin-top: 20px;
-}
 
 
 
@@ -2231,36 +2215,8 @@ function show(pageId){
   }
 
   // 🔧 MOBILE SCROLL RESET — THIS IS THE FIX
-  if (appCard) smoothScrollTo(appCard, 0, 700);
-
+  if (appCard) appCard.scrollTo({ top: 0, behavior: "auto" });
 }
-
-/* 🧈 ULTRA SMOOTH SCROLL FUNCTION */
-function smoothScrollTo(container, target, duration = 600) {
-  const start = container.scrollTop;
-  const change = target - start;
-  const startTime = performance.now();
-
-  function animateScroll(currentTime) {
-    const elapsed = currentTime - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-
-    // easeInOutCubic (VERY smooth)
-    const ease =
-      progress < 0.5
-        ? 4 * progress * progress * progress
-        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-
-    container.scrollTop = start + change * ease;
-
-    if (elapsed < duration) {
-      requestAnimationFrame(animateScroll);
-    }
-  }
-
-  requestAnimationFrame(animateScroll);
-}
-
 
 
 
