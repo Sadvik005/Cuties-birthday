@@ -1640,6 +1640,18 @@ footer.footer-show {
   transform: translateY(0);
 }
 
+.timeline-item {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:f
+    opacity 0.9s ease,
+    transform 0.9s cubic-bezier(.22,.61,.36,1);
+}
+.timeline-item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
 
 
@@ -2989,21 +3001,26 @@ document.addEventListener("mousedown", handleHeartTap);
 // 📜 Timeline scroll reveal
 function revealTimeline() {
   const container = document.getElementById("appCard");
-  const cRect = container.getBoundingClientRect();
+  const containerRect = container.getBoundingClientRect();
+  const revealLine = containerRect.top + container.clientHeight * 0.85;
 
-  document.querySelectorAll(".timeline-item").forEach(item => {
-    if (item.classList.contains("show")) return; // 🚫 prevent re-trigger
+  const items = document.querySelectorAll(".timeline-item");
 
-    const rect = item.getBoundingClientRect();
+  for (let item of items) {
+    if (item.classList.contains("show")) continue;
 
-    // 🌸 MOBILE-FRIENDLY REVEAL ZONE
-    if (rect.top < cRect.bottom - 120) {
-   item.style.transitionDelay = "0.12s";
-item.classList.add("show");
+    const itemRect = item.getBoundingClientRect();
 
+    if (itemRect.top < revealLine) {
+      item.classList.add("show");
+      break; // ✅ one-by-one reveal
     }
-  });
+
+    break;
+  }
 }
+
+
 
 function controlTimelineVideos() {
   const container = document.getElementById("appCard");
@@ -3028,7 +3045,7 @@ appCard.addEventListener("scroll", () => {
 
   scrollTimer = setTimeout(() => {
     revealTimeline();
-    controlTimelineVideos();
+  
     checkSoftEnd();
     scrollTimer = null;
   }, 60); // smooth mobile scroll
