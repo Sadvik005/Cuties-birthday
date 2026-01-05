@@ -49,12 +49,18 @@ html, body {
   button{font-family:inherit}
 .app {
   min-height: 100dvh;
+  overflow: hidden;      /* ✅ app NEVER scrolls */
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px 16px;
-  overflow-y: auto;
 }
+
+#appCard {
+  max-height: calc(100dvh - 40px);  /* adjust if needed */
+  overflow-y: auto;                /* ✅ ONLY scroll container */
+}
+
 
 .card {
   margin: auto;
@@ -105,11 +111,7 @@ body.password-active .app {
   display: none;
 }
 
-.app {
- min-height: 100dvh;
- overflow-y: auto;        /* ✅ only app scrolls */
-  -webkit-overflow-scrolling: touch;
-}
+
 
 
   /* loader typing */
@@ -350,13 +352,6 @@ body.password-active .app {
 .card.scrollable{
   overflow-y: auto;
 }
-html {
-  scroll-behavior: smooth;
-}
-#appCard{
-  scroll-snap-type: y proximity;
-}
-
 
 
   #countEl {
@@ -653,9 +648,6 @@ html {
   }
 }
 /* Make balloon page scrollable on mobile */
-.card.scrollable {
-  overflow-y: auto;
-}
 
 
 @media (max-width: 740px) {
@@ -1615,6 +1607,29 @@ body.password-active footer {
   display: none !important;
 }
 
+/* 🧈 ULTRA SMOOTH SCROLL — CSS ONLY */
+#appCard {
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  scroll-behavior: smooth;           /* smooth scroll */
+  -webkit-overflow-scrolling: touch; /* iOS momentum */
+  overscroll-behavior: contain;      /* no bounce bleed */
+
+  scrollbar-width: thin;             /* Firefox */
+}
+
+/* Chrome / Edge scrollbar (soft) */
+#appCard::-webkit-scrollbar {
+  width: 6px;
+}
+#appCard::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.25);
+  border-radius: 999px;
+}
+#appCard::-webkit-scrollbar-track {
+  background: transparent;
+}
 
 
 
@@ -2245,8 +2260,19 @@ function show(pageId){
   }
 
   // 🔧 MOBILE SCROLL RESET — THIS IS THE FIX
-  if (appCard) appCard.scrollTo({ top: 0, behavior: "auto" });
+
 }
+
+function resetScrollSmooth() {
+  const appCard = document.getElementById("appCard");
+  if (!appCard) return;
+
+  appCard.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
 
 
 
@@ -2544,12 +2570,11 @@ setTimeout(() => giftBox.style.display = "none", 400);
 giftContinue.addEventListener("click", () => {
   show("timeline");
 
-  // ✅ WAIT FOR DOM PAINT, THEN SCROLL
-  setTimeout(() => {
-    document.getElementById("appCard").scrollTop = 0;
-  }, 0);
-
-  setTimeout(revealTimeline, 300);
+  requestAnimationFrame(() => {
+    const appCard = document.getElementById("appCard");
+    appCard.scrollTo({ top: 0, behavior: "auto" });
+    revealTimeline();
+  });
 
   confetti({
     particleCount: 120,
@@ -2557,6 +2582,7 @@ giftContinue.addEventListener("click", () => {
     origin: { y: 0.6 }
   });
 });
+
 
 
 
