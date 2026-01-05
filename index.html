@@ -349,9 +349,7 @@ body.password-active .app {
   }
 
   /* ensure scrolling inside card on small devices */
-.card.scrollable{
-  overflow-y: auto;
-}
+
 
 
   #countEl {
@@ -788,13 +786,8 @@ body.password-active {
   overflow: hidden;
 }
 
-body:not(.password-active) {
-  overflow: auto;
-}
-
-
-body:not(.password-active) .app {
-  overflow-y: auto;
+body {
+  overflow: hidden;   /* body NEVER scrolls */
 }
 
 
@@ -1607,17 +1600,18 @@ body.password-active footer {
   display: none !important;
 }
 
-/* 🧈 ULTRA SMOOTH SCROLL — CSS ONLY */
 #appCard {
+  max-height: calc(100dvh - 40px);
   overflow-y: auto;
   overflow-x: hidden;
 
-  scroll-behavior: smooth;           /* smooth scroll */
-  -webkit-overflow-scrolling: touch; /* iOS momentum */
-  overscroll-behavior: contain;      /* no bounce bleed */
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 
-  scrollbar-width: thin;             /* Firefox */
+  /* 🚫 REMOVE smooth scroll from CSS */
+  scroll-behavior: auto;
 }
+
 
 /* Chrome / Edge scrollbar (soft) */
 #appCard::-webkit-scrollbar {
@@ -2570,11 +2564,16 @@ setTimeout(() => giftBox.style.display = "none", 400);
 giftContinue.addEventListener("click", () => {
   show("timeline");
 
-  requestAnimationFrame(() => {
-    const appCard = document.getElementById("appCard");
-    appCard.scrollTo({ top: 0, behavior: "auto" });
-    revealTimeline();
-  });
+requestAnimationFrame(() => {
+  const appCard = document.getElementById("appCard");
+  appCard.scrollTop = 0;
+
+  // force first reveal immediately
+ revealTimeline();
+controlTimelineVideos();
+
+});
+
 
   confetti({
     particleCount: 120,
@@ -2661,7 +2660,6 @@ function checkSoftEnd() {
   }
 }
 
-document.getElementById("appCard").addEventListener("scroll", checkSoftEnd);
 
 
 
@@ -2977,15 +2975,13 @@ function revealTimeline() {
     }
   });
 }
-
-
-document.getElementById("appCard").addEventListener("scroll", revealTimeline);
-
-
 function controlTimelineVideos() {
+  const container = document.getElementById("appCard");
+  const cRect = container.getBoundingClientRect();
+
   document.querySelectorAll(".timeline video").forEach(v => {
     const rect = v.getBoundingClientRect();
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
+    if (rect.top < cRect.bottom && rect.bottom > cRect.top) {
       v.play().catch(()=>{});
     } else {
       v.pause();
@@ -2993,8 +2989,23 @@ function controlTimelineVideos() {
   });
 }
 
-document.getElementById("appCard")
-  .addEventListener("scroll", controlTimelineVideos);
+
+const appCard = document.getElementById("appCard");
+let scrollTick = false;
+
+appCard.addEventListener("scroll", () => {
+  if (scrollTick) return;
+
+  scrollTick = true;
+  requestAnimationFrame(() => {
+    revealTimeline();
+    controlTimelineVideos();
+    checkSoftEnd();
+    scrollTick = false;
+  });
+});
+
+
 
 
 function playPageFlip() {
