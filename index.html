@@ -645,23 +645,13 @@ body.password-active .app {
     font-size: 22px;
   }
 }
-/* Make balloon page scrollable on mobile */
 
-
-@media (max-width: 740px) {
-  .card.scrollable {
-    max-height: 100vh !important;
-    overflow-y: auto !important;
-  }
-
-  .balloon-grid {
-    margin-bottom: 20px; /* gives breathing room */
-  }
-
-  #continueGift {
-    margin-top: 18px;
-  }
+#timeline {
+  padding-bottom: 80px; /* ensures button is reachable */
 }
+
+
+
 /* DESKTOP FIX — reduce gallery image height */
 @media (min-width: 780px) {
   .slide {
@@ -1625,6 +1615,18 @@ body.password-active footer {
   background: transparent;
 }
 
+/* 🌿 SOFT FOOTER APPEARANCE */
+footer {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* when visible */
+footer.footer-show {
+  opacity: 0.85;
+  transform: translateY(0);
+}
 
 
 
@@ -2232,13 +2234,21 @@ function show(pageId){
   if(el) el.classList.add('show');
 
   const footer = document.querySelector("footer");
+  // 🌿 soft footer reveal
+if (footer) {
+  footer.classList.remove("footer-show");
+  setTimeout(() => {
+    footer.classList.add("footer-show");
+  }, 120);
+}
+
 
   if (pageId === "passwordPage") {
     document.body.classList.add("no-scroll", "password-active");
-    footer.classList.add("hide-footer");
+  
   } else {
     document.body.classList.remove("no-scroll", "password-active");
-    footer.classList.remove("hide-footer");
+    
   }
 
   // scrollable pages inside app card
