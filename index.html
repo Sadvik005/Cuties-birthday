@@ -1694,6 +1694,7 @@ body.password-active footer {
 
 <div class="app">
   <div class="card scrollable" id="appCard">
+    
 
     <!-- LOADING -->
    <section id="loading" class="page">
@@ -1890,8 +1891,7 @@ body.password-active footer {
 <section id="timeline" class="page" aria-live="polite">
 
   <div style="text-align:center;margin-bottom:20px;margin-top:30px">
-  <div class="holo">Our Little Timeline 💫</div>
-  <div class="neon-sub">Moments that made us, us</div>
+  <div class="holo">Our Little Timeline💫</div>
 </div>
 
 <div class="timeline">
@@ -2159,6 +2159,8 @@ LOVEE YOU SO MUCHHHHH RAHHHH BABIII🐣..You will alwayssss have me by your side
 </div>
 </div>
 
+
+
 <footer style="
   width:100%;
   text-align:center;
@@ -2178,6 +2180,34 @@ LOVEE YOU SO MUCHHHHH RAHHHH BABIII🐣..You will alwayssss have me by your side
 
 <!-- floating hearts container -->
 <div id="hearts" aria-hidden="true"></div>
+
+
+<!-- 🌙 Soft Ending Screen -->
+<div id="softEnd" style="
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 99998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .8s ease;
+">
+  <div>
+    <div style="font-size:34px;margin-bottom:12px">🤍</div>
+    <div class="holo" style="font-size:24px">
+      You can stay here as long as you want
+    </div>
+    <div class="neon-sub" style="margin-top:8px">
+      This space is always yours
+    </div>
+  </div>
+</div>
+
 
 
 <script>
@@ -2512,10 +2542,15 @@ setTimeout(() => giftBox.style.display = "none", 400);
 
 // 👉 CONTINUE TO GALLERY BUTTON FIX
 giftContinue.addEventListener("click", () => {
-show("timeline");
-setTimeout(revealTimeline, 300);
+  show("timeline");
 
-// optional celebration
+  // ✅ WAIT FOR DOM PAINT, THEN SCROLL
+  setTimeout(() => {
+    document.getElementById("appCard").scrollTop = 0;
+  }, 0);
+
+  setTimeout(revealTimeline, 300);
+
   confetti({
     particleCount: 120,
     spread: 160,
@@ -2578,6 +2613,31 @@ document.getElementById('toLetter').addEventListener('click', ()=>{
   confetti({particleCount:120,spread:160,origin:{y:0.6}});
 });
 
+const softEnd = document.getElementById("softEnd");
+let softEndShown = false;
+
+function checkSoftEnd() {
+  if (softEndShown) return;
+
+  const finalPage = document.getElementById("final");
+  if (!finalPage.classList.contains("show")) return;
+
+  const appCard = document.getElementById("appCard");
+
+  // if user reaches bottom of letter
+  if (appCard.scrollTop + appCard.clientHeight >= appCard.scrollHeight - 40) {
+    softEndShown = true;
+
+    setTimeout(() => {
+      softEnd.style.opacity = "1";
+      softEnd.style.pointerEvents = "auto";
+    }, 600);
+  }
+}
+
+document.getElementById("appCard").addEventListener("scroll", checkSoftEnd);
+
+
 
 /* ---------------------------
    Hearts for final
@@ -2597,9 +2657,21 @@ function spawnHeart(){
 function startHearts(){ stopHearts(); heartInterval = setInterval(spawnHeart, 480); }
 function stopHearts(){ if(heartInterval) clearInterval(heartInterval); heartInterval = null; }
 
+
 /* ---------------------------
    View again (reset) — FIXED
    --------------------------- */
+
+   softEndShown = false;
+softEnd.style.opacity = "0";
+softEnd.style.pointerEvents = "none";
+function closeSoftEnd() {
+  softEnd.style.opacity = "0";
+  softEnd.style.pointerEvents = "none";
+}
+softEnd.addEventListener("click", closeSoftEnd);
+
+
 document.getElementById('viewAgain').addEventListener('click', ()=>{
 
   // stop final hearts
