@@ -1092,8 +1092,20 @@ input[type="password"]::-ms-clear {
 
   opacity: 0;
   transform: translateY(40px);
-  transition: all 0.7s ease;
+
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s cubic-bezier(.22,.61,.36,1);
+
+  will-change: opacity, transform;
 }
+@media (max-width: 700px) {
+  .timeline-item {
+    transform: translateY(50px);
+    transition-duration: 1s;
+  }
+}
+
 
 .timeline-item.show {
   opacity: 1;
@@ -2980,12 +2992,19 @@ function revealTimeline() {
   const cRect = container.getBoundingClientRect();
 
   document.querySelectorAll(".timeline-item").forEach(item => {
+    if (item.classList.contains("show")) return; // 🚫 prevent re-trigger
+
     const rect = item.getBoundingClientRect();
-    if (rect.top < cRect.bottom - 60) {
-      item.classList.add("show");
+
+    // 🌸 MOBILE-FRIENDLY REVEAL ZONE
+    if (rect.top < cRect.bottom - 120) {
+   item.style.transitionDelay = "0.12s";
+item.classList.add("show");
+
     }
   });
 }
+
 function controlTimelineVideos() {
   const container = document.getElementById("appCard");
   const cRect = container.getBoundingClientRect();
@@ -3002,18 +3021,17 @@ function controlTimelineVideos() {
 
 
 const appCard = document.getElementById("appCard");
-let scrollTick = false;
+let scrollTimer = null;
 
 appCard.addEventListener("scroll", () => {
-  if (scrollTick) return;
+  if (scrollTimer) return;
 
-  scrollTick = true;
-  requestAnimationFrame(() => {
+  scrollTimer = setTimeout(() => {
     revealTimeline();
     controlTimelineVideos();
     checkSoftEnd();
-    scrollTick = false;
-  });
+    scrollTimer = null;
+  }, 60); // smooth mobile scroll
 });
 
 
