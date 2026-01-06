@@ -1687,8 +1687,44 @@ footer.footer-show {
 .timeline-item.show {
   animation: floatSoft 6s ease-in-out infinite;
 }
+/* 🎁 GIFT BOX GLOW */
+.gift-box {
+  position: relative;
+}
+
+.gift-box::before {
+  content: "";
+  position: absolute;
+  inset: -18px;
+  border-radius: 20px;
+  background: radial-gradient(
+    circle,
+    rgba(255,214,249,0.45),
+    rgba(159,122,234,0.25),
+    transparent 70%
+  );
+  filter: blur(26px);
+  opacity: 0.9;
+  z-index: -1;
+  animation: giftGlow 2.8s ease-in-out infinite;
+}
+
+@keyframes giftGlow {
+  0%,100% { opacity: 0.7; transform: scale(1); }
+  50%     { opacity: 1;   transform: scale(1.12); }
+}
 
 
+@keyframes preIntroFade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 
 
@@ -1766,6 +1802,28 @@ footer.footer-show {
 
 <div class="app">
   <div class="card scrollable" id="appCard">
+
+    <!-- PRE INTRO -->
+<section id="preIntro" class="page show">
+  <div class="center">
+    <div style="
+      font-family:Pacifico;
+      font-size:26px;
+      color:#ffb7e6;
+      text-align:center;
+      text-shadow:
+        0 0 10px rgba(255,183,230,0.7),
+        0 0 24px rgba(159,122,234,0.5);
+      animation: preIntroFade 2s ease;
+    ">
+      Every part of this was made thinking of you 🐣<br>
+      <span style="font-size:18px;opacity:0.9">
+       A small effort, made with a big heart❤️
+      </span>
+    </div>
+  </div>
+</section>
+
     
 
     <!-- LOADING -->
@@ -2962,8 +3020,15 @@ document.getElementById("timelineNext").addEventListener("click", () => {
 
 
 // start app on password page
-show("loading");
-typeLine();  // start typing animation immediately
+// show pre-intro first
+show("preIntro");
+
+// after 2 seconds → go to loading page
+setTimeout(() => {
+  show("loading");
+  typeLine();
+}, 5800);
+
 
 /* ---------------------------
    MOBILE SWIPE for gallery
@@ -3154,8 +3219,16 @@ function playPageFlip() {
       This was meant only for you 🐣
     </div>
 
-    Awww 💖<button onclick="closeEgg()" class="btn" style="margin-top:16px">close</button>
-  </div>
+<span style="
+  color:#ff6fb1;
+  font-family:Pacifico;
+  font-size:22px;
+  text-shadow:0 0 10px rgba(255,111,177,0.8);
+">
+  AWWW💖
+</span>
+<button onclick="closeEgg()" class="btn" style="margin-top:16px">close</button>
+ </div>
 </div>
 </body>
 </html>
