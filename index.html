@@ -2314,16 +2314,27 @@ if (footer) {
 
   // scrollable pages inside app card
   const appCard = document.getElementById('appCard');
-  if (
-    pageId === "balloonPage" ||
-    pageId === "timeline" ||
-    pageId === "gallery" ||
-    pageId === "final"
-  ) {
-    appCard.classList.add("scrollable");
-  } else {
-    appCard.classList.remove("scrollable");
+if (
+  pageId === "balloonPage" ||
+  pageId === "timeline" ||
+  pageId === "gallery" ||
+  pageId === "final"
+) {
+  appCard.classList.add("scrollable");
+
+  if (pageId === "timeline") {
+    resetTimeline();
+
+    requestAnimationFrame(() => {
+      revealTimeline();
+      setTimeout(revealTimeline, 80);
+    });
   }
+
+} else {
+  appCard.classList.remove("scrollable");
+}
+
 
   // 🔧 MOBILE SCROLL RESET — THIS IS THE FIX
 
@@ -2632,20 +2643,28 @@ setTimeout(() => giftBox.style.display = "none", 400);
   }, 600);
 });
 
+
+function resetTimeline() {
+  document.querySelectorAll(".timeline-item").forEach(item => {
+    item.classList.remove("show");
+  });
+}
+
+
 // 👉 CONTINUE TO GALLERY BUTTON FIX
 giftContinue.addEventListener("click", () => {
   show("timeline");
 
-requestAnimationFrame(() => {
-  const appCard = document.getElementById("appCard");
-  appCard.scrollTop = 0;
+  requestAnimationFrame(() => {
+    const appCard = document.getElementById("appCard");
+    appCard.scrollTop = 0;
 
-  // force first reveal immediately
- revealTimeline();
-controlTimelineVideos();
+    // 🔥 FORCE REVEAL (twice, different frames)
+    revealTimeline();
+    setTimeout(revealTimeline, 80);
 
-});
-
+    controlTimelineVideos();
+  });
 
   confetti({
     particleCount: 120,
@@ -2653,6 +2672,7 @@ controlTimelineVideos();
     origin: { y: 0.6 }
   });
 });
+
 
 
 
