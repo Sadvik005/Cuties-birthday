@@ -1641,16 +1641,53 @@ footer.footer-show {
 }
 
 .timeline-item {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+
   opacity: 0;
-  transform: translateY(40px);
-  transition:f
-    opacity 0.9s ease,
-    transform 0.9s cubic-bezier(.22,.61,.36,1);
+  transform: translateY(60px) scale(0.97);
+  filter: blur(6px);
+
+  transition:
+    opacity 1.2s ease,
+    transform 1.2s cubic-bezier(.22,.61,.36,1),
+    filter 1.2s ease;
+
+  will-change: opacity, transform, filter;
 }
+
 .timeline-item.show {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+  filter: blur(0);
 }
+.timeline-item:nth-child(1) { transition-delay: 0.1s; }
+.timeline-item:nth-child(2) { transition-delay: 0.25s; }
+.timeline-item:nth-child(3) { transition-delay: 0.4s; }
+.timeline-item:nth-child(4) { transition-delay: 0.55s; }
+.timeline-item:nth-child(5) { transition-delay: 0.7s; }
+.timeline-item:nth-child(6) { transition-delay: 0.85s; }
+.timeline-item:nth-child(7) { transition-delay: 1s; }
+.timeline-img {
+  transition: transform 0.8s ease, box-shadow 0.8s ease;
+}
+
+.timeline-item.show .timeline-img {
+  transform: scale(1.04);
+  box-shadow: 0 22px 60px rgba(255,111,177,0.35);
+}
+@keyframes floatSoft {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+.timeline-item.show {
+  animation: floatSoft 6s ease-in-out infinite;
+}
+
 
 
 
@@ -3002,6 +3039,8 @@ document.addEventListener("mousedown", handleHeartTap);
 function revealTimeline() {
   const container = document.getElementById("appCard");
   const containerRect = container.getBoundingClientRect();
+
+  // reveal point (85% of visible area)
   const revealLine = containerRect.top + container.clientHeight * 0.85;
 
   const items = document.querySelectorAll(".timeline-item");
@@ -3013,12 +3052,13 @@ function revealTimeline() {
 
     if (itemRect.top < revealLine) {
       item.classList.add("show");
-      break; // ✅ one-by-one reveal
+      return; // ✅ reveal ONLY ONE per scroll frame
     }
 
-    break;
+    // ❌ DO NOT BREAK HERE
   }
 }
+
 
 
 
@@ -3038,18 +3078,19 @@ function controlTimelineVideos() {
 
 
 const appCard = document.getElementById("appCard");
-let scrollTimer = null;
+let ticking = false;
 
 appCard.addEventListener("scroll", () => {
-  if (scrollTimer) return;
-
-  scrollTimer = setTimeout(() => {
-    revealTimeline();
-  
-    checkSoftEnd();
-    scrollTimer = null;
-  }, 60); // smooth mobile scroll
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      revealTimeline();
+      checkSoftEnd();
+      ticking = false;
+    });
+    ticking = true;
+  }
 });
+
 
 
 
